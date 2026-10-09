@@ -16,16 +16,27 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="bar"><a class="brand" href="index.html">uv101<span>.</span></a>
+<header class="bar bar--over"><a class="brand" href="index.html">uv101<span>.</span></a>
 <nav><a href="index.html" aria-current="page">Log</a><a href="posts/small-telescope.html">Guide</a><a href="posts/how-it-works.html">How it works</a><a href="gallery.html">Gallery</a></nav></header>
-<div class="spectrum" aria-hidden="true"></div>
-<figure class="masthead">
+<section class="hero">
   <img src="img/veil-arc.jpg" alt="The Eastern Veil Nebula, a curved filament of red hydrogen and teal oxygen gas against a dense star field" width="1555" height="1362">
-  <figcaption>Eastern Veil Nebula (NGC 6992) · 138 × 20 s · dual-band filter, H-alpha mapped to red and O-III to teal · 7 Oct 2026</figcaption>
-</figure>
+  <div class="hero__text">
+    <p class="eyebrow">A beginner's observing log</p>
+    <h1>Letting an AI drive the telescope</h1>
+    <p>A 30 mm smart telescope, a back garden in Oxfordshire, and Claude doing the driving, from first focus to the finished picture.</p>
+    <p class="hero__cta"><a href="posts/small-telescope.html">Start with the guide</a><a href="gallery.html">See the pictures</a></p>
+  </div>
+  <p class="hero__credit">Eastern Veil Nebula · 46 min · 7 Oct 2026</p>
+  <div class="spectrum spectrum--hero" aria-hidden="true"></div>
+</section>
+<nav class="tiles" aria-label="Sections">
+  <a href="posts/small-telescope.html"><img src="img/veil-hoo.jpg" alt="" loading="lazy"><span><small>Guide</small>How a small lens takes big pictures</span></a>
+  <a href="posts/2026-10-09-veil-and-pleiades.html"><img src="img/heart-starreduced.jpg" alt="" loading="lazy"><span><small>Night log</small>Latest: Veil and Pleiades</span></a>
+  <a href="posts/how-it-works.html"><img src="img/m31.jpg" alt="" loading="lazy"><span><small>How it works</small>Control, planning and processing</span></a>
+  <a href="gallery.html"><img src="img/veil-natural.jpg" alt="" loading="lazy"><span><small>Gallery</small>Finished images</span></a>
+</nav>
 <main class="page">
-  <p class="eyebrow">A beginner's observing log</p>
-  <h1>Letting an AI drive the telescope</h1>
+  <h2>About this site</h2>
   <p class="lede">I'm new to astrophotography. In October 2026 I bought a Seestar S30 Pro smart telescope and, instead of learning every piece of software at once, asked Claude to help me drive it.</p>
   <p>This is a hobbyist site. It records what happens when Claude, Anthropic's AI, writes the control software, measures what the garden can see, plans the night, points and focuses the telescope, takes the pictures and processes them. I set up the tripod and go to bed. Expect beginner mistakes, honest results and the occasional cloud.</p>
   <dl class="log">
@@ -52,10 +63,6 @@
     <li><a href="posts/processing.html"><time>Part 2</time><h3>From hundreds of frames to one picture</h3><p>The automatic processing pipeline, colour palettes, and combining nights.</p></a></li>
   </ul>
 
-  <div class="pair">
-    <figure><img src="img/heart-starreduced.jpg" alt="The Heart Nebula, glowing red hydrogen gas with its stars reduced" loading="lazy" width="2000" height="1125"><figcaption>Heart Nebula (IC 1805) · 106 × 20 s</figcaption></figure>
-    <figure><img src="img/m31.jpg" alt="The Andromeda Galaxy with its two companion galaxies" loading="lazy" width="2000" height="1125"><figcaption>Andromeda Galaxy (M31) · 90 × 20 s</figcaption></figure>
-  </div>
   <p><a href="gallery.html">See the gallery</a></p>
 </main>
 
