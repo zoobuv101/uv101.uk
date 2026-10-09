@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Processing Pipeline</title>
+<meta name="description" content="How hundreds of 30-second frames from a Seestar become one finished picture, automatically, overnight.">
+<meta property="og:title" content="Processing Pipeline">
+<meta property="og:description" content="How hundreds of 30-second frames from a Seestar become one finished picture, automatically, overnight.">
+<meta property="og:image" content="https://uv101.uk/img/heart-starreduced.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Syne:wght@600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="bar"><a class="brand" href="../index.html">uv101<span>.</span></a>
+<nav><a href="../index.html">Log</a><a href="../posts/how-it-works.html" aria-current="page">How it works</a><a href="../gallery.html">Gallery</a></nav></header>
+<div class="spectrum" aria-hidden="true"></div>
+<main class="page">
+  <p class="eyebrow">How it works · part 2 of 2</p>
+  <h1>From hundreds of frames to one picture</h1>
+  <p class="byline">Written October 2026 · <a href="../posts/how-it-works.html">Part 1: control and planning</a></p>
+  <p class="lede">A single 30-second frame of the Veil Nebula is mostly noise with a faint smudge in it. The picture at the top of this site is about 140 of those frames, combined and processed with no human touching a slider.</p>
+
+  <h2>Why stack at all?</h2>
+  <p>Faint nebulae give off very little light, and every frame carries random noise. Averaging many frames keeps the signal and cancels the noise: four times the frames gives roughly twice the clarity. That's why the plans run for hours on one target, and why nights can be combined.</p>
+
+  <h2>Where the work happens</h2>
+  <p>The telescope streams every frame over Wi-Fi to the home server the moment it's taken, so nothing is stored on the scope. Processing a session is heavy, so it runs on the office PC (an 8-core Ryzen) inside a Linux container nicknamed <strong>astromech</strong>. It checks for finished sessions every two minutes and takes about 8–9 minutes per session. The same job took 46 minutes on the home server.</p>
+
+  <h2>The pipeline</h2>
+  <ol class="steps">
+    <li><b>Check and label the frames.</b> Skip any half-written or corrupt files and tag each frame with the camera's real colour pattern.</li>
+    <li><b>Calibrate.</b> Subtract a master dark frame (shots taken with the shutter closed at the same exposure and gain) to remove the sensor's own glow and hot pixels, then turn the raw colour mosaic into colour images.</li>
+    <li><b>Align.</b> Find the stars in every frame and line them all up on one reference. Frames that can't be aligned, such as those spoiled by passing cloud, are dropped.</li>
+    <li><b>Stack.</b> Average the aligned frames, rejecting outliers like satellite trails and aircraft.</li>
+    <li><b>Colour calibration.</b> Plate-solve the stacked image, look up the catalogued colours of the stars in it and set the white balance from them, so star colours are measured rather than guessed.</li>
+    <li><b>Remove gradients.</b> An AI model (GraXpert) removes the glow from streetlights and the sky itself, which is never perfectly even from a garden.</li>
+    <li><b>Reduce noise.</b> A second GraXpert AI pass smooths the remaining noise.</li>
+    <li><b>Stretch and finish.</b> The data is mostly very dark, so it is brightened gently and non-linearly, with a mask that keeps the background calm while the nebula comes up. The image is then rotated so north is up.</li>
+    <li><b>Deliver.</b> Finished pictures are sent to my phone by Telegram, preview first and then the full-resolution file.</li>
+  </ol>
+
+  <h2>Two colour palettes from one filter</h2>
+  <p>The S30 Pro's dual-band filter passes two narrow slices of light: <strong>hydrogen-alpha</strong> at 656.3 nm, deep red, and <strong>oxygen-III</strong> at 500.7 nm, blue-green. The camera's red pixels mostly see the hydrogen and its green and blue pixels mostly see the oxygen. So for emission nebulae the pipeline produces a natural-colour version and a <strong>HOO</strong> version, which maps hydrogen to red and oxygen to teal. That's where the Veil's red and teal filaments come from. The thin coloured line under the site header marks those two wavelengths, to scale.</p>
+  <div class="pair">
+    <figure><img src="../img/veil-natural.jpg" alt="Veil Nebula in natural colour" loading="lazy" width="1125" height="2000"><figcaption>Natural colour</figcaption></figure>
+    <figure><img src="../img/veil-hoo.jpg" alt="Veil Nebula in the HOO palette" loading="lazy" width="1125" height="2000"><figcaption>HOO palette: hydrogen red, oxygen teal</figcaption></figure>
+  </div>
+  <p>Some of these fields sit in the Milky Way and are packed with stars. A third version separates the stars from the nebula, shrinks the stars and puts them back more faintly, so the gas isn't swamped.</p>
+
+  <h2>Gentle beats dramatic</h2>
+  <p>The first Andromeda picture used strong local contrast and saturation, and it looked noisy. My verdict was "noisy as hell, the previous one looked better", and that was right. The main output is now the gentle version, with the dramatic one kept only as an extra.</p>
+  <div class="pair">
+    <figure><img src="../img/m31-noisy-crop.jpg" alt="Close crop of Andromeda's core, heavily processed and grainy" loading="lazy"><figcaption>Too much: aggressive contrast and saturation</figcaption></figure>
+    <figure><img src="../img/m31-gentle-crop.jpg" alt="The same crop processed gently, smoother background" loading="lazy"><figcaption>The gentle finish now used</figcaption></figure>
+  </div>
+
+  <h2>Combining nights</h2>
+  <p>Each night is processed on its own first, so I see results the next morning. Nights on the same target can then be combined. Each night is calibrated with its own dark frames, which matters because exposures differ from night to night, then every frame from every night is aligned and stacked together, with cleaner frames counting for more.</p>
+
+  <h2>What's next</h2>
+  <ul>
+    <li>A proper AI star-removal tool and AI sharpening, both free.</li>
+    <li>Spectrophotometric colour calibration, which uses each star's measured spectrum and the camera's real filter curves.</li>
+    <li>Drizzle integration, which uses the dither nudges to rebuild detail at twice the resolution for prints.</li>
+    <li>A trial of PixInsight, the standard professional-grade tool, with BlurXTerminator for deconvolution.</li>
+  </ul>
+  <p>Results will be posted here with before-and-after comparisons.</p>
+</main>
+
+<footer>Seestar S30 Pro · TH10 wedge · a back garden in Oxfordshire. Telescope driven, images processed and pages drafted by Claude; tripod carried by a human.</footer>
+</body>
+</html>

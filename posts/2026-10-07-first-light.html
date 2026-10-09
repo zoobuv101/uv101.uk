@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>First Light</title>
+<meta name="description" content="Night 1, 7 October 2026: Andromeda, the Veil and the Heart Nebula, captured and processed unattended.">
+<meta property="og:title" content="First Light">
+<meta property="og:description" content="Night 1, 7 October 2026: Andromeda, the Veil and the Heart Nebula, captured and processed unattended.">
+<meta property="og:image" content="https://uv101.uk/img/veil-arc.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Syne:wght@600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="bar"><a class="brand" href="../index.html">uv101<span>.</span></a>
+<nav><a href="../index.html" aria-current="page">Log</a><a href="../posts/how-it-works.html">How it works</a><a href="../gallery.html">Gallery</a></nav></header>
+<div class="spectrum" aria-hidden="true"></div>
+<main class="page">
+  <p class="eyebrow">Night log · Wednesday 7 October 2026</p>
+  <h1>First light: Andromeda, the Veil and the Heart</h1>
+
+  <h2>The plan</h2>
+  <p>The first proper night from the back garden, with the scope level on its tripod in alt-az mode (no wedge yet). The goal was to test everything end to end: a short Andromeda run to tune exposure settings, then two colourful nebulae through the dual-band filter, then an autofocus test on real stars after midnight.</p>
+  <dl class="log">
+    <div><dt>Mount</dt><dd>Alt-az, level</dd></div>
+    <div><dt>Target 1</dt><dd>M31 Andromeda</dd></div>
+    <div><dt>Target 2</dt><dd>NGC 6992 Veil</dd></div>
+    <div><dt>Target 3</dt><dd>IC 1805 Heart</dd></div>
+    <div><dt>Moon</dt><dd>Waning, late rise</dd></div>
+  </dl>
+
+  <h2>What happened</h2>
+  <p><strong>Andromeda, twice.</strong> The first run used the default gain of 80 and 10-second frames. The stack was noisy. Measuring the frames showed they were limited by the camera's read noise, so the second run used gain 200 and 20-second frames: 90 frames, all of which aligned and stacked.</p>
+  <figure class="wide"><img src="../img/m31.jpg" alt="The Andromeda Galaxy with companion galaxies M32 and M110" loading="lazy" width="2000" height="1125"><figcaption>M31 · 90 × 20 s at gain 200 (30 min) · natural colour</figcaption></figure>
+
+  <p><strong>The Veil.</strong> 140 frames of 20 seconds through the dual-band filter, of which 138 aligned. The HOO version brought out the red hydrogen and teal oxygen of the shock front.</p>
+  <figure class="wide"><img src="../img/veil-arc.jpg" alt="Eastern Veil Nebula in red and teal" loading="lazy" width="1555" height="1362"><figcaption>NGC 6992 · 138 × 20 s (46 min) · HOO palette, cropped to the arc</figcaption></figure>
+
+  <p><strong>The Heart.</strong> The move to the Heart Nebula failed first time with a "fail to operate" error from the telescope. A retry worked, and the software now retries automatically. 140 frames were captured but only 106 aligned. The cause is still being investigated: there were spells of softer stars mid-run.</p>
+  <figure class="wide"><img src="../img/heart-starreduced.jpg" alt="Heart Nebula, red hydrogen gas with stars reduced" loading="lazy" width="2000" height="1125"><figcaption>IC 1805 · 106 × 20 s (35 min) · HOO palette with stars reduced</figcaption></figure>
+
+  <p><strong>Autofocus test.</strong> After the Heart run, Claude ran its own autofocus routine on real stars. It traced a clean V-curve and confirmed the scope was already in focus, moving it just 4 steps. Then it parked the scope and left the dew heater on, as I'd asked before going to bed.</p>
+
+  <h2>Behind the scenes</h2>
+  <ul>
+    <li>Processing first ran on the home server, slowly. Partway through the evening Claude set up a Linux environment on the office PC and moved processing there: 4.6 times faster.</li>
+    <li>A frame copied while it was still being written stalled the processor. Every file reader now has limits and corrupt frames are skipped.</li>
+    <li>A power bank went on mid-session. Claude paused the run between targets so I could plug it in without knocking the scope.</li>
+    <li>Every picture reached my phone overnight, as each target finished processing.</li>
+  </ul>
+
+  <h2>Lessons for next time</h2>
+  <ul>
+    <li>Gain 200 and 20–30 second frames from now on.</li>
+    <li>Put the scope on the equatorial wedge, so the field doesn't rotate during long runs.</li>
+    <li>Spend hours rather than minutes on a single target.</li>
+  </ul>
+</main>
+
+<footer>Seestar S30 Pro · TH10 wedge · a back garden in Oxfordshire. Telescope driven, images processed and pages drafted by Claude; tripod carried by a human.</footer>
+</body>
+</html>
