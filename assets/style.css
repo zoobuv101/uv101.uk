@@ -1,0 +1,123 @@
+/* uv101 — observing log for a Claude-driven Seestar.
+   Layout: a single reading column (~68ch) under a full-bleed image masthead; data lives in mono "log strips".
+   Colour comes from the dual-band filter's two emission lines: H-alpha 656.3 nm and O-III 500.7 nm. */
+:root {
+  --void: #07090f;        /* sky background, blue-black */
+  --panel: #0e121b;       /* raised surfaces */
+  --rule: #1d2433;        /* hairlines */
+  --ink: #e4e7ef;         /* body text */
+  --dim: #8d95a8;         /* secondary text, blue-grey */
+  --ha: #ef4f6a;          /* hydrogen-alpha */
+  --oiii: #43c6c9;        /* oxygen-III */
+  --star: #f6f1e3;        /* warm white for highlights */
+  --display: "Syne", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Literata", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --measure: 68ch;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--void); color: var(--ink);
+  font: 400 1.0625rem/1.7 var(--body);
+  padding-inline: 16px;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--oiii); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--star); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--oiii); outline-offset: 3px; border-radius: 2px; }
+
+/* site bar */
+.bar {
+  max-width: 72rem; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+  align-items: baseline; justify-content: space-between; padding-block: 1.1rem;
+}
+.brand { font: 700 1.15rem/1 var(--display); letter-spacing: 0.02em; color: var(--ink); text-decoration: none; }
+.brand span { color: var(--ha); }
+.bar nav { display: flex; gap: 1.25rem; font: 500 0.78rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.12em; }
+.bar nav a { color: var(--dim); text-decoration: none; }
+.bar nav a:hover, .bar nav a[aria-current] { color: var(--ink); }
+
+/* the spectral rule: the filter's two passbands, to scale between 480 and 680 nm */
+.spectrum { max-width: 72rem; margin: 0 auto; height: 2px; position: relative; background: var(--rule); }
+.spectrum::before, .spectrum::after { content: ""; position: absolute; top: 0; height: 2px; width: 3%; }
+.spectrum::before { left: calc((500.7 - 480) / 200 * 100%); background: var(--oiii); box-shadow: 0 0 10px var(--oiii); }
+.spectrum::after { left: calc((656.3 - 480) / 200 * 100%); background: var(--ha); box-shadow: 0 0 10px var(--ha); }
+
+/* masthead image */
+.masthead { max-width: 72rem; margin: 1.5rem auto 0; position: relative; }
+.masthead img { width: 100%; max-height: 34rem; object-fit: cover; border-radius: 3px; }
+.masthead figcaption { font: 400 0.75rem/1.5 var(--mono); color: var(--dim); padding-top: 0.5rem; }
+
+/* headings */
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.1rem, 5.5vw, 3.6rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.4rem, 3vw, 1.85rem); font-weight: 600; margin-top: 3rem; }
+h3 { font-size: 1.15rem; font-weight: 600; margin-top: 2rem; }
+.eyebrow { font: 500 0.75rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: 0.14em; color: var(--ha); }
+
+/* reading column */
+.page { max-width: var(--measure); margin: 0 auto; padding-block: 2.5rem 5rem; display: flex; flex-direction: column; gap: 1.1rem; }
+.page > * { margin: 0; }
+.lede { font-size: 1.22rem; line-height: 1.6; color: var(--ink); }
+.page p, .page li { min-width: 0; }
+.page ul, .page ol { padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.4rem; }
+strong { color: var(--star); font-weight: 600; }
+code { font: 400 0.88em/1 var(--mono); color: var(--star); background: var(--panel); padding: 0.1em 0.35em; border-radius: 3px; }
+pre { overflow-x: auto; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 1rem 1.1rem; font: 400 0.85rem/1.6 var(--mono); color: var(--ink); }
+pre code { background: none; padding: 0; font-size: inherit; }
+.byline { font: 400 0.8rem/1.5 var(--mono); color: var(--dim); }
+
+/* observing-log strip: real session data */
+.log { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: 1px; background: var(--rule);
+  border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; font-family: var(--mono); }
+.log div { background: var(--panel); padding: 0.7rem 0.85rem; display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.log dt { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--dim); }
+.log dd { margin: 0; font-size: 0.95rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* figures inside the column may break out wider */
+figure { margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+figure.wide { width: min(64rem, calc(100vw - 32px)); margin-inline: calc((min(64rem, calc(100vw - 32px)) - 100%) / -2); }
+figure img { border-radius: 3px; }
+figcaption { font: 400 0.78rem/1.55 var(--mono); color: var(--dim); }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.75rem; }
+.pair figure { min-width: 0; }
+
+/* charts */
+.chart { overflow-x: auto; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 0.75rem; }
+.chart svg { display: block; width: 100%; min-width: 30rem; height: auto; }
+.chart text { font-family: var(--mono); fill: var(--dim); font-size: 11px; }
+
+/* pipeline: a real sequence, so it is numbered */
+.steps { list-style: none; padding: 0 !important; counter-reset: s; gap: 0 !important; border-left: 1px solid var(--rule); }
+.steps li { counter-increment: s; position: relative; padding: 0 0 1.1rem 1.6rem; }
+.steps li::before { content: counter(s, decimal-leading-zero); position: absolute; left: -0.95rem; top: 0.15rem;
+  width: 1.9rem; text-align: center; background: var(--void); font: 500 0.72rem/1.4 var(--mono); color: var(--oiii); }
+.steps b { font-family: var(--display); font-weight: 600; color: var(--star); }
+
+.note { border-left: 2px solid var(--ha); padding: 0.2rem 0 0.2rem 1rem; color: var(--dim); }
+
+/* post list on the front page */
+.posts { list-style: none; padding: 0 !important; gap: 0 !important; border-top: 1px solid var(--rule); }
+.posts li { border-bottom: 1px solid var(--rule); }
+.posts a { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.25rem 1.25rem; padding-block: 1.1rem; text-decoration: none; color: var(--ink); }
+.posts time { font: 400 0.78rem/1.6 var(--mono); color: var(--dim); }
+.posts h3 { margin: 0; font-size: 1.2rem; }
+.posts p { grid-column: 2; margin: 0; color: var(--dim); font-size: 0.98rem; }
+.posts a:hover h3 { color: var(--oiii); }
+@media (max-width: 30rem) { .posts a { grid-template-columns: 1fr; } .posts p { grid-column: 1; } }
+
+/* gallery */
+.gallery { max-width: 72rem; margin: 0 auto; padding-block: 2rem 5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: 1.25rem; }
+.gallery figure { min-width: 0; }
+.gallery img { aspect-ratio: 16 / 10; object-fit: cover; width: 100%; max-width: 100%; }
+.gallery figcaption b { color: var(--ink); font-weight: 500; }
+
+footer { max-width: 72rem; margin: 0 auto; border-top: 1px solid var(--rule); padding-block: 1.5rem 2.5rem; font: 400 0.75rem/1.6 var(--mono); color: var(--dim); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .spectrum::before, .spectrum::after { transition: box-shadow 0.6s; }
+  .bar:hover + .spectrum::before { box-shadow: 0 0 16px var(--oiii); }
+  .bar:hover + .spectrum::after { box-shadow: 0 0 16px var(--ha); }
+}
