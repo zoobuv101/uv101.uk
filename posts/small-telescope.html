@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Small Telescope, Big Pictures</title>
+<link rel="canonical" href="https://uv101.uk/posts/small-telescope.html">
+<meta property="og:url" content="https://uv101.uk/posts/small-telescope.html">
+<meta name="description" content="Why a 30 mm smart telescope can take pictures that once needed an observatory, from Galileo to AI, and how we taught an AI an experienced imager's workflow.">
+<meta property="og:title" content="Small Telescope, Big Pictures">
+<meta property="og:description" content="Why a 30 mm smart telescope can take pictures that once needed an observatory, from Galileo to AI, and how we taught an AI an experienced imager's workflow.">
+<meta property="og:image" content="https://uv101.uk/img/veil-arc.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Syne:wght@600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="bar"><a class="brand" href="../index.html">uv101<span>.</span></a>
+<nav><a href="../index.html">Log</a><a href="../posts/small-telescope.html" aria-current="page">Guide</a><a href="../posts/how-it-works.html">How it works</a><a href="../gallery.html">Gallery</a></nav></header>
+<div class="spectrum" aria-hidden="true"></div>
+<main class="page">
+  <p class="eyebrow">Guide · start here</p>
+  <h1>How can a lens this small take pictures like these?</h1>
+  <p class="byline">Written October 2026 by a beginner, researched with Claude. Sources at the end.</p>
+  <p class="lede">The main lens of the Seestar S30 Pro is 30 mm across, about the size of a large coin. For most of the history of astronomy, the rule was simple: a bigger lens or mirror shows you more. So how does a lens this small produce the Veil Nebula at the top of this site?</p>
+  <p>The short answer: the lens is the only thing about astrophotography that hasn't changed much. The camera chip behind it, the way pictures are combined, and the software that cleans them up have all improved enormously, and that is what this page explains.</p>
+
+  <h2>The old rule: aperture is king</h2>
+  <p>A telescope's aperture is the width of its main lens or mirror. It sets two things.</p>
+  <p><strong>Light grasp.</strong> A lens collects light in proportion to its area, so doubling the width collects four times the light. Compared with a dark-adapted eye, about 7 mm wide:</p>
+  <div class="table"><table>
+    <thead><tr><th>Aperture</th><th>Example</th><th>Light collected vs the eye</th></tr></thead>
+    <tbody>
+      <tr><td>7 mm</td><td>Human eye</td><td>1×</td></tr>
+      <tr><td>30 mm</td><td>Seestar S30 Pro</td><td>18×</td></tr>
+      <tr><td>80 mm</td><td>Typical small refractor</td><td>131×</td></tr>
+      <tr><td>200 mm</td><td>8-inch amateur telescope</td><td>816×</td></tr>
+      <tr><td>2,400 mm</td><td>Hubble Space Telescope</td><td>117,600×</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Resolution.</strong> Light spreads slightly as it passes through any opening, which limits the finest detail a telescope can separate. A common rule of thumb, the Dawes limit, is 116 divided by the aperture in millimetres, in arcseconds. For the S30 Pro that is about 3.9 arcseconds, against 0.6 for an 8-inch telescope.</p>
+  <p>So by the old rule, a 30 mm lens collects about 1/45th of the light of an 8-inch telescope and sees about one-sixth of the detail. Both statements are still true. What has changed is everything else.</p>
+
+  <h2>From Galileo to the smart telescope</h2>
+  <ul class="timeline">
+    <li><time>1609</time><span>Galileo's telescope had a lens 37 mm across, but he stopped it down to about 15 mm of working aperture. It was smaller than the Seestar's lens, and it showed him the moons of Jupiter.</span></li>
+    <li><time>1781</time><span>William Herschel discovers Uranus from his garden in Bath with a home-made 6.2-inch metal mirror.</span></li>
+    <li><time>1840</time><span>John William Draper takes the first successful photograph of the Moon.</span></li>
+    <li><time>1880</time><span>Henry and Anna Draper make the first photograph of a nebula, Orion, with an 11-inch refractor and a 51-minute exposure.</span></li>
+    <li><time>1883</time><span>Andrew Ainslie Common photographs Orion from his back garden in Ealing with a 36-inch mirror, exposures up to 68 minutes, and wins the Royal Astronomical Society's Gold Medal. Garden astrophotography in England is older than you might think.</span></li>
+    <li><time>1969</time><span>Willard Boyle and George Smith invent the CCD at Bell Labs. It later earns them a share of the 2009 Nobel Prize in Physics.</span></li>
+    <li><time>1976</time><span>The first astronomical images are taken with a CCD.</span></li>
+    <li><time>1989</time><span>SBIG's ST-4 brings cooled CCD cameras within reach of amateurs.</span></li>
+    <li><time>2005</time><span>Canon's EOS 20Da, the first DSLR built for astrophotography, passes about 2.5× more deep-red hydrogen light than a normal camera.</span></li>
+    <li><time>2010</time><span>Astrometry.net publishes "blind" plate solving: software that works out exactly where any star photo is pointing.</span></li>
+    <li><time>2017–19</time><span>The first smart telescopes appear (Unistellar eVscope, Vaonis Stellina), with telescope, camera, mount and computer in one box.</span></li>
+    <li><time>2019–22</time><span>AI arrives in processing: StarNet removes stars (2019), GraXpert models sky gradients (2022), and BlurXTerminator sharpens with deconvolution (2022).</span></li>
+    <li><time>2023–26</time><span>ZWO's Seestar range brings smart telescopes to a mass market. The S30 Pro ships in 2026 at £649, and its firmware speaks ASCOM Alpaca, a standard control language that lets other software, or an AI, drive it.</span></li>
+  </ul>
+
+  <h2>Why small optics work now</h2>
+  <h3>1. The camera chip catches almost every photon</h3>
+  <p>A photographic plate recorded about 1% of the light that reached it, and the best astronomical emulsions managed only a few percent. The S30 Pro uses a Sony IMX585 sensor. In the matching ZWO astronomy camera, ZWO measures it at about <strong>91% quantum efficiency</strong>: nine in every ten photons are recorded.</p>
+  <p>That alone is roughly a hundredfold gain over film. In effect, the Seestar's 30 mm lens with a modern sensor records about as much light as a film camera behind a lens around ten times wider.</p>
+
+  <h3>2. Almost no noise from reading the chip</h3>
+  <p>Every time a camera reads out an image it adds a little electronic noise. On older cameras that read noise was large, so you had to take long exposures to rise above it. The IMX585 adds as little as <strong>0.7 electrons</strong> per pixel in its high-sensitivity mode, which switches on at gain 200. That is why our nights run at gain 200.</p>
+  <p>With so little read noise, a hundred 30-second frames are almost as good as one 50-minute exposure. Short frames are much more forgiving, too: a gust of wind, a passing plane or a tracking error spoils one frame instead of the whole night.</p>
+
+  <h3>3. Stacking: time replaces aperture</h3>
+  <p>The clarity of an image, its signal-to-noise ratio, grows with the square root of the total exposure time. Four times the exposure gives twice the clarity. A small lens collects less light per minute, but a computer-controlled telescope can collect for many hours, night after night, and stack everything together. Friday's 2.3 hours on the Veil, added to Tuesday's 46 minutes, is exactly this trade.</p>
+
+  <h3>4. The optics and the pixels are matched</h3>
+  <p>The S30 Pro's 160 mm focal length and 2.9 µm pixels give an image scale of 3.74 arcseconds per pixel, almost exactly its 3.9 arcsecond resolution limit. Neither the lens nor the camera is wasted on the other. From a British garden, the atmosphere usually blurs detail at a similar scale anyway, so a much bigger telescope would often be held back by the air above it.</p>
+
+  <h3>5. Big nebulae need a wide field</h3>
+  <p>For extended objects like nebulae, the brightness reaching each pixel depends on the focal ratio (focal length divided by aperture) and the pixel scale, not on aperture alone. At f/5.3, the S30 Pro is a fairly "fast" optic. And its 4° × 2.2° field fits the whole Veil, nearly 3° across, or the whole Andromeda Galaxy, about 3° long. A big telescope with a long focal length would need a mosaic of many panels to cover the same sky.</p>
+  <p class="note">The honest limit: total light from a target still scales with aperture squared. Small galaxies, planets and fine structure are where big telescopes still win clearly. The Seestar shines on large, bright-enough targets with plenty of exposure time.</p>
+
+  <h3>6. Filters that ignore streetlights</h3>
+  <p>The S30 Pro's dual-band filter passes only two slices of colour: about 20 nm around hydrogen-alpha at 656.3 nm, and about 30 nm around oxygen-III at 500.7 nm. Old sodium and mercury streetlights fall outside both slices. White LEDs spread their light across the spectrum, so a little still leaks through, but most of it is blocked. That's what makes nebula photography possible from a town garden. It doesn't help with galaxies or star clusters, which shine in all colours.</p>
+
+  <h3>7. Software that does what experts do by hand</h3>
+  <p>The last piece is processing. Calibration with dark frames, aligning hundreds of frames, rejecting satellite trails, measuring star colours against the Gaia space telescope's catalogue, removing light-pollution gradients with AI, and AI noise reduction and sharpening are what turn the raw stack into a picture. Ten years ago most of these were specialist skills. Now they are tools anyone can run, and an AI can run them all night.</p>
+
+  <h2>Teaching an AI an experienced imager's workflow</h2>
+  <p>Experienced astrophotographers follow a well-worn routine built up over years of mistakes. We set out to have Claude follow the same routine, and to learn from mistakes the same way.</p>
+  <div class="table"><table>
+    <thead><tr><th>What an experienced imager does</th><th>How Claude does it here</th></tr></thead>
+    <tbody>
+      <tr><td>Checks what's above the trees and roofs tonight</td><td>Measured the garden's skyline with the telescope's own camera, then plans each target's window around it</td></tr>
+      <tr><td>Frames the target carefully</td><td>Plate-solves a test frame and nudges until the target is centred within a few arcminutes</td></tr>
+      <tr><td>Focuses on a star with a Bahtinov mask or focus curve</td><td>Runs a V-curve autofocus on real stars at the start and every hour</td></tr>
+      <tr><td>Chooses gain and exposure from the camera's noise</td><td>Measured that gain 80 was read-noise limited and moved to gain 200 and 20–30 s</td></tr>
+      <tr><td>Dithers between frames</td><td>Random guide pulses every five frames</td></tr>
+      <tr><td>Watches for cloud and throws away bad frames</td><td>Counts stars in every frame, pauses on cloud, and drops frames that won't align</td></tr>
+      <tr><td>Shoots darks, calibrates, stacks</td><td>Takes darks at the end of the night and runs Siril on the office PC</td></tr>
+      <tr><td>Calibrates colour against real stars</td><td>Photometric colour calibration from catalogue star colours</td></tr>
+      <tr><td>Stretches gently and avoids over-processing</td><td>A masked, gentle stretch, learned after I called the first attempt "noisy as hell"</td></tr>
+    </tbody>
+  </table></div>
+  <p>The loop that makes this work is feedback. When something goes wrong, the fix becomes code and the lesson is written into Claude's notes for next time. Examples so far: wrong star colours, a mirrored image, a noisy finish, the app holding the camera, cloud fooling the polar alignment. A human imager builds this experience over years. Here it accumulates in days, but it still needs a human looking at the pictures and saying what looks right.</p>
+
+  <h2>Small telescopes doing real science</h2>
+  <p>This isn't only about pretty pictures. Unistellar's network of small smart telescopes has contributed to published research. In November 2021, 43 observations from nine countries recorded a 16-hour transit of the exoplanet Kepler-167e, the longest-period planet whose transit had been caught from the ground (Perrocheau et al., 2022). For the Seestar there are, so far, mainly anecdotal reports of exoplanet transits and asteroid measurements.</p>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li>ZWO, <a href="https://www.zwoastro.com/product/seestar-s30-pro/">Seestar S30 Pro specifications</a> and <a href="https://www.zwoastro.com/product/asi585mc-mm-pro/">ASI585MC Pro (IMX585) data</a></li>
+    <li>Sony, <a href="https://www.sony-semicon.com/en/news/2021/2021062901.html">IMX585 announcement</a> (2021)</li>
+    <li>BBC Sky at Night, <a href="https://www.skyatnightmagazine.com/reviews/zwo-seestar-s30-pro">Seestar S30 Pro review</a> (2026)</li>
+    <li>Caltech Ay122, <a href="https://sites.astro.caltech.edu/~george/ay122/Ay122a_Detectors1.pdf">detector efficiency of photographic plates</a></li>
+    <li>Museo Galileo, <a href="https://brunelleschi.imss.fi.it/telescopiogalileo/etel.asp?c=50011">Galileo's telescope</a>; Royal Museums Greenwich, <a href="https://rmg.co.uk/collections/objects/rmgc-object-11122">Herschel's telescope</a></li>
+    <li>Astronomy.com, <a href="https://www.astronomy.com/today-in-the-history-of-astronomy/sept-30-1880-henry-and-anna-draper-photograph-m42">Draper's 1880 Orion photograph</a>; Science Museum Group, <a href="https://collection.sciencemuseumgroup.org.uk/objects/co486047">Common's 1883 Orion</a></li>
+    <li>NOIRLab, <a href="https://noirlab.edu/public/blog/50-years-ccds">50 years of CCDs</a></li>
+    <li>Lang et al., <a href="https://arxiv.org/abs/0910.2233">Astrometry.net</a>, Astronomical Journal (2010)</li>
+    <li>Stan Moore, <a href="https://stanmooreastro.com/SamplingFratioMyth.htm">the f-ratio myth</a>; Princeton, <a href="https://swh.princeton.edu/~rvdb/images/ApertureFacts.html">aperture facts</a></li>
+    <li>Perrocheau et al., <a href="https://arxiv.org/abs/2211.01532">Kepler-167e transit with Unistellar</a>, ApJ Letters (2022)</li>
+  </ul>
+</main>
+
+<footer>Seestar S30 Pro · TH10 wedge · a back garden in Oxfordshire. Telescope driven, images processed and pages drafted by Claude; tripod carried by a human.</footer>
+</body>
+</html>
