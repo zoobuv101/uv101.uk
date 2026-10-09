@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://uv101.uk/sitemap.xml
