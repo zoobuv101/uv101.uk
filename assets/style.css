@@ -33,7 +33,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--oiii); outline-
   max-width: 72rem; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
   align-items: baseline; justify-content: space-between; padding-block: 1.1rem;
 }
-.brand { font: 700 1.15rem/1 var(--display); letter-spacing: 0.02em; color: var(--ink); text-decoration: none; }
+.brand { font: 700 1.15rem/1 var(--display); letter-spacing: 0.02em; white-space: nowrap; color: var(--ink); text-decoration: none; }
 .brand span { color: var(--ha); }
 .bar nav { display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem; font: 500 0.78rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.12em; }
 .bar nav a { color: var(--dim); text-decoration: none; }

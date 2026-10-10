@@ -3,13 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Control and Planning</title>
+<title>Automating a Seestar S30 Pro: Control, Plate Solving and Night Planning</title>
 <link rel="canonical" href="https://uv101.uk/posts/how-it-works.html">
+<meta name="description" content="How Claude talks to a Seestar S30 Pro, maps the garden&#x27;s real skyline with the telescope&#x27;s own camera, and plans a night around it.">
+<meta name="keywords" content="Seestar S30 Pro, telescope automation, Alpaca, plate solving, horizon mapping, imaging plan, equatorial wedge">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="uv101 Astro">
 <meta property="og:url" content="https://uv101.uk/posts/how-it-works.html">
-<meta name="description" content="How Claude talks to a Seestar S30 Pro, maps the garden's real skyline with the telescope's own camera, and plans a night around it.">
-<meta property="og:title" content="Control and Planning">
-<meta property="og:description" content="How Claude talks to a Seestar S30 Pro, maps the garden's real skyline with the telescope's own camera, and plans a night around it.">
+<meta property="og:title" content="Automating a Seestar S30 Pro: Control, Plate Solving and Night Planning">
+<meta property="og:description" content="How Claude talks to a Seestar S30 Pro, maps the garden&#x27;s real skyline with the telescope&#x27;s own camera, and plans a night around it.">
 <meta property="og:image" content="https://uv101.uk/img/veil-hoo.jpg">
+<meta property="og:image:alt" content="The Veil Nebula in HOO narrowband colour">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Automating a Seestar S30 Pro: Control, Plate Solving and Night Planning">
+<meta name="twitter:description" content="How Claude talks to a Seestar S30 Pro, maps the garden&#x27;s real skyline with the telescope&#x27;s own camera, and plans a night around it.">
+<meta name="twitter:image" content="https://uv101.uk/img/veil-hoo.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Automating a Seestar S30 Pro: Control, Plate Solving and Night Planning", "description": "How Claude talks to a Seestar S30 Pro, maps the garden's real skyline with the telescope's own camera, and plans a night around it.", "url": "https://uv101.uk/posts/how-it-works.html", "keywords": "Seestar S30 Pro, telescope automation, Alpaca, plate solving, horizon mapping, imaging plan, equatorial wedge", "image": "https://uv101.uk/img/veil-hoo.jpg"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&display=swap">
@@ -20,7 +29,7 @@
 <meta name="theme-color" content="#07090f">
 </head>
 <body>
-<header class="bar"><a class="brand" href="../index.html">uv101<span>.</span></a>
+<header class="bar"><a class="brand" href="../index.html">uv101 <span>Astro</span></a>
 <nav><a href="../index.html">Log</a><a href="../posts/small-telescope.html">Guide</a><a href="../posts/how-it-works.html" aria-current="page">How it works</a><a href="../gallery.html">Gallery</a></nav></header>
 <div class="spectrum" aria-hidden="true"></div>
 <main class="page">
