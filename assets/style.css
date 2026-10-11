@@ -37,8 +37,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--oiii); outline-
 .brand { display: inline-flex; align-items: center; gap: 0.6rem; align-self: center; }
 .brand img { display: block; width: auto; max-width: none; }
 .brand__logo { height: 11rem; }
+.brand { margin: 2.75rem 0 0 2.9rem; }  /* in and down by ~25% of the logo */
 .bar--over .brand img { filter: drop-shadow(0 1px 6px rgb(0 0 0 / 0.7)); }
-@media (max-width: 30rem) { .brand__logo { height: 9.5rem; } }
+@media (max-width: 30rem) { .brand__logo { height: 9.5rem; } .brand { margin: 2.4rem 0 0 2.5rem; } }
 .bar nav { display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem; font: 500 0.78rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.12em; }
 .bar nav a { color: var(--dim); text-decoration: none; }
 .bar nav a:hover, .bar nav a[aria-current] { color: var(--ink); }
