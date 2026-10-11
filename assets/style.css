@@ -169,3 +169,24 @@ td:last-child { font-variant-numeric: tabular-nums; }
 /* scroll reveal: set up by the script in the page head */
 .reveal .rv { opacity: 0; transform: translateY(1.5rem); transition: opacity 0.65s ease, transform 0.65s ease; }
 .reveal .rv.in { opacity: 1; transform: none; }
+
+/* picture viewer (assets/lightbox.js) */
+.lb-open { overflow: hidden; }
+.lb[hidden], .lb [hidden] { display: none; }
+.lb { position: fixed; inset: 0; z-index: 100; background: rgb(7 9 15 / 0.97); }
+.lb__track { position: absolute; inset: 0; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior: contain; scrollbar-width: none; }
+.lb__track::-webkit-scrollbar { display: none; }
+.lb__slide { flex: 0 0 100%; scroll-snap-align: center; scroll-snap-stop: always; margin: 0; min-width: 0; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem;
+  padding: calc(3.5rem + env(safe-area-inset-top, 0px)) 16px calc(1.25rem + env(safe-area-inset-bottom, 0px)); }
+.lb__slide img { max-width: 100%; max-height: calc(100% - 4.5rem); width: auto; height: auto; object-fit: contain; border-radius: 2px; }
+.lb__slide figcaption { max-width: 48rem; text-align: center; font: 400 0.75rem/1.5 var(--mono); color: var(--dim); }
+.lb__btn { position: absolute; z-index: 1; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 1px solid var(--rule); border-radius: 50%;
+  background: rgb(14 18 27 / 0.8); color: var(--ink); font: 400 1.6rem/1 var(--display); cursor: pointer; }
+.lb__btn:hover { border-color: var(--oiii); color: var(--star); }
+.lb__close { top: calc(0.6rem + env(safe-area-inset-top, 0px)); right: 16px; }
+.lb__prev, .lb__next { top: 50%; transform: translateY(-50%); }
+.lb__prev { left: 16px; }
+.lb__next { right: 16px; }
+.lb__count { position: absolute; top: calc(0.6rem + env(safe-area-inset-top, 0px)); left: 16px; margin: 0; line-height: 2.75rem; font: 400 0.75rem/2.75rem var(--mono); color: var(--dim); letter-spacing: 0.08em; }
+@media (hover: none) { .lb__prev, .lb__next { display: none; } }  /* phones swipe */
+@media (prefers-reduced-motion: reduce) { .lb__track { scroll-behavior: auto; } }
