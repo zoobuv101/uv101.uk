@@ -1,6 +1,7 @@
 /* Gallery viewer: tap any picture in a post or the gallery to open it full screen, then swipe (or use the
    arrows / arrow keys) through every picture on the page. Esc, the close button or the phone's back button
-   closes it. Slides are a native scroll-snap strip, so swiping feels like the phone's own photo viewer. */
+   closes it. Slides are a native scroll-snap strip, so swiping feels like the phone's own photo viewer.
+   Tapping the picture itself opens the full-resolution file (data-full, else the shown file) in a new tab. */
 (function () {
   var imgs = Array.prototype.slice.call(document.querySelectorAll(".page figure img, .gallery figure img"))
     .filter(function (im) { return !im.closest(".masthead, .hero, .tiles"); });
@@ -8,7 +9,8 @@
 
   var items = imgs.map(function (im) {
     var fig = im.closest("figure"), cap = fig && fig.querySelector("figcaption"), a = im.closest("a");
-    return { src: a ? a.getAttribute("href") : im.currentSrc || im.src, alt: im.alt, cap: cap ? cap.innerHTML : "" };
+    var src = a ? a.getAttribute("href") : im.currentSrc || im.src;
+    return { src: src, full: im.getAttribute("data-full") || src, alt: im.alt, cap: cap ? cap.innerHTML : "" };
   });
 
   var box = document.createElement("div");
@@ -23,7 +25,10 @@
   items.forEach(function (it) {
     var s = document.createElement("figure");
     s.className = "lb__slide";
-    s.innerHTML = '<img alt="" decoding="async"><figcaption></figcaption>';
+    s.innerHTML = '<a class="lb__full" target="_blank" rel="noopener"><img alt="" decoding="async"></a><figcaption></figcaption>';
+    var link = s.querySelector("a");
+    link.href = it.full;
+    link.title = it.full !== it.src ? "Open the full-resolution image in a new tab" : "Open the image in a new tab";
     s.querySelector("img").alt = it.alt;
     s.querySelector("figcaption").innerHTML = it.cap;
     track.appendChild(s);
