@@ -8,7 +8,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#07090f">
 <!-- Full-resolution viewer, opened in a new tab from the picture viewer (lightbox.js):
-     view.html?src=img/full/<name>.jpg. Drag to move, wheel / pinch / double-tap to zoom, 0 or "Fit" to reset. -->
+     view.html?src=img/full/<name>.jpg. Opens at 100%, centred. Drag to move, wheel / pinch / double-tap to zoom, 0 or "Fit" to reset. -->
 <style>
   :root { --void: #07090f; --panel: #0e121b; --rule: #1d2433; --ink: #e4e7ef; --dim: #8d95a8; --oiii: #43c6c9; --star: #f6f1e3;
     --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; color-scheme: dark; }
@@ -66,7 +66,8 @@
   }
   function fit() { fitS = Math.min(vw() / W, vh() / H, 1); s = fitS; draw(); }
 
-  pic.onload = function () { W = pic.naturalWidth; H = pic.naturalHeight; msg.hidden = true; pic.alt = document.title; fit(); };
+  pic.onload = function () { W = pic.naturalWidth; H = pic.naturalHeight; msg.hidden = true; pic.alt = document.title; fit();
+    s = 1; x = (vw() - W) / 2; y = (vh() - H) / 2; draw(); };  // open at 100%, centred
   pic.onerror = function () { msg.textContent = "Couldn't load the picture."; };
   pic.src = url;
 
