@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>uv101 Astro · full resolution</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#07090f">
+<!-- Full-resolution viewer, opened in a new tab from the picture viewer (lightbox.js):
+     view.html?src=img/full/<name>.jpg. Drag to move, wheel / pinch / double-tap to zoom, 0 or "Fit" to reset. -->
+<style>
+  :root { --void: #07090f; --panel: #0e121b; --rule: #1d2433; --ink: #e4e7ef; --dim: #8d95a8; --oiii: #43c6c9; --star: #f6f1e3;
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; color-scheme: dark; }
+  html, body { margin: 0; height: 100%; background: var(--void); color: var(--ink); overflow: hidden; }
+  #stage { position: fixed; inset: 0; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+  #stage.drag { cursor: grabbing; }
+  #pic { position: absolute; left: 0; top: 0; transform-origin: 0 0; max-width: none; will-change: transform; image-rendering: auto; -webkit-user-drag: none; }
+  .bar { position: fixed; z-index: 1; left: 0; right: 0; bottom: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: center;
+    padding: 0.6rem 16px calc(0.6rem + env(safe-area-inset-bottom, 0px)); background: linear-gradient(to top, rgb(7 9 15 / 0.9), rgb(7 9 15 / 0)); font: 400 0.75rem/1 var(--mono); }
+  .bar button, .bar a { min-height: 2.5rem; padding: 0 0.9rem; display: inline-grid; place-items: center; border: 1px solid var(--rule); border-radius: 999px;
+    background: rgb(14 18 27 / 0.85); color: var(--ink); font: inherit; text-decoration: none; cursor: pointer; }
+  .bar button:hover, .bar a:hover { border-color: var(--oiii); color: var(--star); }
+  .bar button:focus-visible, .bar a:focus-visible { outline: 2px solid var(--oiii); outline-offset: 2px; }
+  #zoom { min-width: 4.5rem; text-align: center; color: var(--dim); letter-spacing: 0.06em; font-variant-numeric: tabular-nums; }
+  #msg { position: fixed; inset: 0; display: grid; place-items: center; font: 400 0.8rem/1.5 var(--mono); color: var(--dim); pointer-events: none; text-align: center; padding: 16px; }
+</style>
+</head>
+<body>
+<div id="stage"><img id="pic" alt="" draggable="false"></div>
+<p id="msg">Loading full-resolution image…</p>
+<div class="bar">
+  <button id="out" aria-label="Zoom out">−</button>
+  <span id="zoom" aria-live="polite"></span>
+  <button id="in" aria-label="Zoom in">+</button>
+  <button id="fit">Fit</button>
+  <button id="one">1:1</button>
+  <a id="raw" target="_blank" rel="noopener">Image file</a>
+</div>
+<script>
+(function () {
+  var stage = document.getElementById("stage"), pic = document.getElementById("pic"), msg = document.getElementById("msg"),
+      zoomLbl = document.getElementById("zoom");
+  // only pictures from this site's own img/ folder
+  var src = new URLSearchParams(location.search).get("src") || "";
+  if (!/^img\/[\w\/.-]+\.(jpe?g|png|webp)$/i.test(src) || src.indexOf("..") >= 0) { msg.textContent = "No picture to show."; return; }
+  var url = "../" + src;
+  document.getElementById("raw").href = url;
+  document.title = src.split("/").pop().replace(/\.\w+$/, "").replace(/-/g, " ") + " · uv101 Astro";
+
+  var s = 1, x = 0, y = 0, fitS = 1, W = 0, H = 0;
+  function vw() { return stage.clientWidth; }
+  function vh() { return stage.clientHeight; }
+  function clamp() {  // keep the picture on screen: centred when smaller, edges never pulled inside when larger
+    var w = W * s, h = H * s;
+    x = w <= vw() ? (vw() - w) / 2 : Math.min(0, Math.max(vw() - w, x));
+    y = h <= vh() ? (vh() - h) / 2 : Math.min(0, Math.max(vh() - h, y));
+  }
+  function draw() {
+    clamp();
+    pic.style.transform = "translate(" + x + "px," + y + "px) scale(" + s + ")";
+    zoomLbl.textContent = Math.round(s * 100) + "%";
+  }
+  function zoomAt(ns, cx, cy) {  // zoom keeping the point under (cx, cy) still
+    ns = Math.max(fitS, Math.min(4, ns));
+    x = cx - (cx - x) * ns / s; y = cy - (cy - y) * ns / s; s = ns; draw();
+  }
+  function fit() { fitS = Math.min(vw() / W, vh() / H, 1); s = fitS; draw(); }
+
+  pic.onload = function () { W = pic.naturalWidth; H = pic.naturalHeight; msg.hidden = true; pic.alt = document.title; fit(); };
+  pic.onerror = function () { msg.textContent = "Couldn't load the picture."; };
+  pic.src = url;
+
+  // drag with one pointer, pinch with two
+  var pts = {}, last = null, pinch = null, tapT = 0, tapX = 0, tapY = 0;
+  stage.addEventListener("pointerdown", function (e) {
+    stage.setPointerCapture(e.pointerId);
+    pts[e.pointerId] = { x: e.clientX, y: e.clientY };
+    var ids = Object.keys(pts);
+    if (ids.length === 1) {
+      last = { x: e.clientX, y: e.clientY }; stage.classList.add("drag");
+      var now = Date.now();  // double-tap / double-click: toggle between fit and 1:1 at that point
+      if (now - tapT < 300 && Math.abs(e.clientX - tapX) < 30 && Math.abs(e.clientY - tapY) < 30) {
+        zoomAt(s > fitS * 1.05 ? fitS : 1, e.clientX, e.clientY); tapT = 0;
+      } else { tapT = now; tapX = e.clientX; tapY = e.clientY; }
+    } else if (ids.length === 2) {
+      var a = pts[ids[0]], b = pts[ids[1]];
+      pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), s: s }; last = null;
+    }
+  });
+  stage.addEventListener("pointermove", function (e) {
+    if (!pts[e.pointerId]) return;
+    pts[e.pointerId] = { x: e.clientX, y: e.clientY };
+    var ids = Object.keys(pts);
+    if (ids.length === 2 && pinch) {
+      var a = pts[ids[0]], b = pts[ids[1]];
+      zoomAt(pinch.s * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d, (a.x + b.x) / 2, (a.y + b.y) / 2);
+    } else if (last) {
+      x += e.clientX - last.x; y += e.clientY - last.y; last = { x: e.clientX, y: e.clientY }; draw();
+    }
+  });
+  function up(e) {
+    delete pts[e.pointerId];
+    var ids = Object.keys(pts);
+    if (ids.length < 2) pinch = null;
+    if (ids.length === 1) last = { x: pts[ids[0]].x, y: pts[ids[0]].y };
+    if (!ids.length) { last = null; stage.classList.remove("drag"); }
+  }
+  stage.addEventListener("pointerup", up);
+  stage.addEventListener("pointercancel", up);
+  stage.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    zoomAt(s * Math.exp(-e.deltaY * (e.deltaMode === 1 ? 0.05 : 0.0015)), e.clientX, e.clientY);
+  }, { passive: false });
+
+  function centreZoom(f) { zoomAt(s * f, vw() / 2, vh() / 2); }
+  document.getElementById("in").onclick = function () { centreZoom(1.5); };
+  document.getElementById("out").onclick = function () { centreZoom(1 / 1.5); };
+  document.getElementById("fit").onclick = fit;
+  document.getElementById("one").onclick = function () { zoomAt(1, vw() / 2, vh() / 2); };
+  document.addEventListener("keydown", function (e) {
+    var k = e.key, step = 80;
+    if (k === "+" || k === "=") centreZoom(1.25);
+    else if (k === "-") centreZoom(0.8);
+    else if (k === "0") fit();
+    else if (k === "1") zoomAt(1, vw() / 2, vh() / 2);
+    else if (k === "ArrowLeft") { x += step; draw(); }
+    else if (k === "ArrowRight") { x -= step; draw(); }
+    else if (k === "ArrowUp") { y += step; draw(); }
+    else if (k === "ArrowDown") { y -= step; draw(); }
+    else return;
+    e.preventDefault();
+  });
+  window.addEventListener("resize", function () {
+    if (!W) return;
+    var wasFit = Math.abs(s - fitS) < 1e-3;
+    fitS = Math.min(vw() / W, vh() / H, 1);
+    if (wasFit) s = fitS;
+    draw();
+  });
+})();
+</script>
+</body>
+</html>
