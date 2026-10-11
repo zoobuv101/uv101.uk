@@ -165,3 +165,7 @@ td:last-child { font-variant-numeric: tabular-nums; }
 .tiles small { font: 500 0.68rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.14em; color: var(--ha); }
 .tiles a:hover { border-color: var(--oiii); }
 @media (prefers-reduced-motion: no-preference) { .tiles a:hover img { transform: scale(1.04); } }
+
+/* scroll reveal: set up by the script in the page head */
+.reveal .rv { opacity: 0; transform: translateY(1.5rem); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal .rv.in { opacity: 1; transform: none; }
