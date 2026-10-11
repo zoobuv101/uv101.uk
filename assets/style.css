@@ -141,7 +141,10 @@ td:last-child { font-variant-numeric: tabular-nums; }
 .bar--over { position: absolute; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 2; padding-inline: 16px; max-width: none; }
 .bar--over .brand, .bar--over nav a { color: var(--star); text-shadow: 0 1px 8px rgb(0 0 0 / 0.7); }
 .hero { position: relative; margin-inline: -16px; min-height: min(92vh, 56rem); display: grid; align-items: end; overflow: hidden; isolation: isolate; }
-.hero > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 28%; z-index: -2; }
+.hero__slides { position: absolute; inset: 0; z-index: -2; }
+.hero__slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.6s ease; }
+.hero__slide.is-on { opacity: 1; }
+.hero__slide img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 30%; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(to top, var(--void) 0%, rgb(7 9 15 / 0.82) 22%, rgb(7 9 15 / 0.15) 55%, rgb(7 9 15 / 0.45) 100%); }
 .hero__text { max-width: 72rem; width: 100%; margin: 0 auto; padding: 6rem 16px 3.5rem; display: flex; flex-direction: column; gap: 0.9rem; }
