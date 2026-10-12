@@ -1,3 +1,4 @@
+# uv101.uk - everything here is public; the full-resolution viewer page carries its own noindex
 User-agent: *
 Allow: /
 
