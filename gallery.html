@@ -32,14 +32,20 @@
 <script>(function(){var d=document.documentElement;if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('reveal');document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.page > *, .gallery > figure, .tiles > a, .hero__text > *');var io=new IntersectionObserver(function(es){var n=0;es.forEach(function(e){if(e.isIntersecting){e.target.style.transitionDelay=(0.1+0.08*n++)+'s';e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(el){el.classList.add('rv');io.observe(el);el.addEventListener('transitionend',function f(ev){if(ev.target!==el||ev.propertyName!=='opacity')return;el.removeEventListener('transitionend',f);el.style.transitionDelay='';el.classList.remove('rv','in');});});});})();</script>
 </head>
 <body>
-<header class="bar"><a class="brand" href="index.html" aria-label="uv101 Astro, home"><img class="brand__logo" src="assets/logo.png" alt="uv101 Astro" width="254" height="240"></a>
+<header class="bar bar--over"><a class="brand" href="index.html" aria-label="uv101 Astro, home"><img class="brand__logo" src="assets/logo.png" alt="uv101 Astro" width="254" height="240"></a>
 <nav><a href="index.html">Log</a><a href="posts/small-telescope.html">Guide</a><a href="posts/how-it-works.html">How it works</a><a href="gallery.html" aria-current="page">Gallery</a></nav></header>
-<div class="spectrum" aria-hidden="true"></div>
-<main class="page" style="padding-block-end: 0">
-  <p class="eyebrow">Gallery</p>
-  <h1>Finished images</h1>
-  <p>Every picture here was captured and processed automatically. Tap one to open the full image.</p>
-</main>
+<section class="hero hero--page">
+  <div class="hero__slides">
+    <picture class="hero__slide is-on"><source media="(max-aspect-ratio: 1/1)" srcset="img/hero/trunk-tall.jpg"><img src="img/hero/trunk-wide.jpg" alt="The Elephant's Trunk, a dark curling column of dust in the red glow of IC 1396, beside a cluster of hot young stars" width="2160" height="1215" fetchpriority="high"></picture>
+  </div>
+  <div class="hero__text">
+    <p class="eyebrow">Gallery</p>
+    <h1>Finished images</h1>
+    <p>Every picture here was captured and processed automatically. Tap one to open the full image.</p>
+  </div>
+  <p class="hero__credit">Elephant's Trunk Nebula · 2 h 9 min · 11 Oct 2026</p>
+  <div class="spectrum spectrum--hero" aria-hidden="true"></div>
+</section>
 <section class="gallery">
   <figure><a href="img/2026-10-13-sun.jpg"><img src="img/2026-10-13-sun.jpg" alt="The Sun in yellow-orange with a group of sunspots lower left" loading="lazy"></a><figcaption><b>The Sun</b> · sunspots in white light · 80 frames · 13 Oct 2026</figcaption></figure>
   <figure><a href="img/2026-10-11-trunk.jpg"><img src="img/2026-10-11-trunk.jpg" alt="The Elephant's Trunk, a dark curling column of dust with a glowing rim" loading="lazy"></a><figcaption><b>Elephant's Trunk Nebula</b> · IC 1396 · 2 h 9 min · 11 Oct 2026</figcaption></figure>

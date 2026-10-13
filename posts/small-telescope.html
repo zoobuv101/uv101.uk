@@ -32,12 +32,21 @@
 <script>(function(){var d=document.documentElement;if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('reveal');document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.page > *, .gallery > figure, .tiles > a, .hero__text > *');var io=new IntersectionObserver(function(es){var n=0;es.forEach(function(e){if(e.isIntersecting){e.target.style.transitionDelay=(0.1+0.08*n++)+'s';e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(el){el.classList.add('rv');io.observe(el);el.addEventListener('transitionend',function f(ev){if(ev.target!==el||ev.propertyName!=='opacity')return;el.removeEventListener('transitionend',f);el.style.transitionDelay='';el.classList.remove('rv','in');});});});})();</script>
 </head>
 <body>
-<header class="bar"><a class="brand" href="../index.html" aria-label="uv101 Astro, home"><img class="brand__logo" src="../assets/logo.png" alt="uv101 Astro" width="254" height="240"></a>
+<header class="bar bar--over"><a class="brand" href="../index.html" aria-label="uv101 Astro, home"><img class="brand__logo" src="../assets/logo.png" alt="uv101 Astro" width="254" height="240"></a>
 <nav><a href="../index.html">Log</a><a href="../posts/small-telescope.html" aria-current="page">Guide</a><a href="../posts/how-it-works.html">How it works</a><a href="../gallery.html">Gallery</a></nav></header>
-<div class="spectrum" aria-hidden="true"></div>
+<section class="hero hero--page">
+  <div class="hero__slides">
+    <picture class="hero__slide is-on"><source media="(max-aspect-ratio: 1/1)" srcset="../img/hero/andromeda-tall.jpg"><img src="../img/hero/andromeda-wide.jpg" alt="The Andromeda Galaxy, a tilted spiral of stars 2.5 million light years away, with its two small companion galaxies" width="2160" height="1215" fetchpriority="high"></picture>
+  </div>
+  <div class="hero__text">
+    <p class="eyebrow">Guide · start here</p>
+    <h1>How can a lens this small take pictures like these?</h1>
+    <p>A 30 mm lens took this picture of a galaxy 2.5 million light years away. Here is how.</p>
+  </div>
+  <p class="hero__credit">Andromeda Galaxy · 90 × 20 s · 7 Oct 2026</p>
+  <div class="spectrum spectrum--hero" aria-hidden="true"></div>
+</section>
 <main class="page">
-  <p class="eyebrow">Guide · start here</p>
-  <h1>How can a lens this small take pictures like these?</h1>
   <p class="byline">Written October 2026 by a beginner, researched with Claude. Sources at the end.</p>
   <p class="lede">The main lens of the Seestar S30 Pro is 30 mm across, about the size of a large coin. For most of the history of astronomy, the rule was simple: a bigger lens or mirror shows you more. So how does a lens this small produce the Veil Nebula at the top of this site?</p>
   <p>The short answer: the lens is the only thing about astrophotography that hasn't changed much. The camera chip behind it, the way pictures are combined, and the software that cleans them up have all improved enormously, and that is what this page explains.</p>

@@ -179,6 +179,11 @@ td:last-child { font-variant-numeric: tabular-nums; }
 .hero__cta a:first-child { background: var(--ha); border-color: var(--ha); color: var(--void); }
 .hero__cta a:hover { border-color: var(--star); }
 .hero__credit { position: absolute; right: 16px; bottom: 0.9rem; margin: 0; font: 400 0.68rem/1.4 var(--mono); color: var(--dim); }
+/* inner-page banner: the same treatment as the front page, shorter, so the page still starts near the top */
+.hero--page { min-height: min(62vh, 36rem); }
+.hero--page .hero__text { padding-top: 11rem; padding-bottom: 2.75rem; }
+.hero--page h1 { font-size: clamp(2rem, 5.5vw, 3.8rem); }
+@media (max-width: 40rem) { .hero--page .hero__text { padding-top: 9rem; } }
 .spectrum--hero { position: absolute; left: 0; right: 0; bottom: 0; max-width: none; }
 
 /* topic tiles: each section with its own image */
