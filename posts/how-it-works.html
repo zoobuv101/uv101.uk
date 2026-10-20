@@ -1,24 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Automating a Seestar S30 Pro: Control and Planning</title>
+<title>Automating a Seestar S30 Pro in EQ Mode: Control and Planning</title>
 <link rel="canonical" href="https://uv101.uk/posts/how-it-works.html">
-<meta name="description" content="How Claude drives a Seestar S30 Pro: plate solving, autofocus, mapping the garden&#x27;s skyline with the telescope&#x27;s own camera, and planning a night around it.">
-<meta name="keywords" content="Seestar S30 Pro, telescope automation, Alpaca, plate solving, horizon mapping, imaging plan, equatorial wedge">
+<meta name="description" content="How Claude drives a Seestar S30 Pro in EQ mode on a wedge: Alpaca control, plate solving, autofocus, mapping the garden&#x27;s skyline and planning the night.">
+<meta name="keywords" content="Seestar S30 Pro, telescope automation, Alpaca, plate solving, horizon mapping, imaging plan, equatorial wedge, Seestar EQ mode, Seestar EQ wedge, TH10 wedge">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="uv101 Astro">
 <meta property="og:url" content="https://uv101.uk/posts/how-it-works.html">
-<meta property="og:title" content="Automating a Seestar S30 Pro: Control and Planning">
-<meta property="og:description" content="How Claude drives a Seestar S30 Pro: plate solving, autofocus, mapping the garden&#x27;s skyline with the telescope&#x27;s own camera, and planning a night around it.">
-<meta property="og:image" content="https://uv101.uk/img/veil-hoo.jpg">
-<meta property="og:image:alt" content="The Veil Nebula in HOO narrowband colour">
+<meta property="og:title" content="Automating a Seestar S30 Pro in EQ Mode: Control and Planning">
+<meta property="og:description" content="How Claude drives a Seestar S30 Pro in EQ mode on a wedge: Alpaca control, plate solving, autofocus, mapping the garden&#x27;s skyline and planning the night.">
+<meta property="og:image" content="https://uv101.uk/img/2026-10-07-veil-nebula-ngc6992-hoo.jpg">
+<meta property="og:image:alt" content="The Veil Nebula (NGC 6992) in HOO narrowband colour">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Automating a Seestar S30 Pro: Control and Planning">
-<meta name="twitter:description" content="How Claude drives a Seestar S30 Pro: plate solving, autofocus, mapping the garden&#x27;s skyline with the telescope&#x27;s own camera, and planning a night around it.">
-<meta name="twitter:image" content="https://uv101.uk/img/veil-hoo.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Automating a Seestar S30 Pro: Control and Planning", "description": "How Claude drives a Seestar S30 Pro: plate solving, autofocus, mapping the garden's skyline with the telescope's own camera, and planning a night around it.", "url": "https://uv101.uk/posts/how-it-works.html", "keywords": "Seestar S30 Pro, telescope automation, Alpaca, plate solving, horizon mapping, imaging plan, equatorial wedge", "image": "https://uv101.uk/img/veil-hoo.jpg"}</script>
+<meta name="twitter:title" content="Automating a Seestar S30 Pro in EQ Mode: Control and Planning">
+<meta name="twitter:description" content="How Claude drives a Seestar S30 Pro in EQ mode on a wedge: Alpaca control, plate solving, autofocus, mapping the garden&#x27;s skyline and planning the night.">
+<meta name="twitter:image" content="https://uv101.uk/img/2026-10-07-veil-nebula-ngc6992-hoo.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Automating a Seestar S30 Pro in EQ Mode: Control and Planning", "description": "How Claude drives a Seestar S30 Pro in EQ mode on a wedge: Alpaca control, plate solving, autofocus, mapping the garden's skyline and planning the night.", "url": "https://uv101.uk/posts/how-it-works.html", "mainEntityOfPage": "https://uv101.uk/posts/how-it-works.html", "inLanguage": "en-GB", "keywords": "Seestar S30 Pro, telescope automation, Alpaca, plate solving, horizon mapping, imaging plan, equatorial wedge, Seestar EQ mode, Seestar EQ wedge, TH10 wedge", "isPartOf": {"@type": "WebSite", "name": "uv101 Astro", "url": "https://uv101.uk/"}, "image": "https://uv101.uk/img/2026-10-07-veil-nebula-ngc6992-hoo.jpg", "associatedMedia": [{"@type": "ImageObject", "contentUrl": "https://uv101.uk/img/scope-nights-2026-10-10.jpg", "description": "Scope Nights app: a week of night ratings, Friday 9 October rated Good and mostly clear, the following nights fair to poor", "caption": "Scope Nights' all-night forecast at 00:45 on Saturday. Friday 9 Oct rated Good, which turned out right. Exact coordinates blurred.", "creditText": "uv101.uk", "creator": {"@type": "Organization", "name": "uv101 Astro", "url": "https://uv101.uk/", "logo": {"@type": "ImageObject", "url": "https://uv101.uk/assets/logo.png"}}, "copyrightNotice": "© 2026 uv101.uk. Please ask before reusing."}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&display=swap">
@@ -51,6 +51,7 @@
     <div><dt>Filters</dt><dd>IR-cut, dual-band</dd></div>
     <div><dt>Mount</dt><dd>TH10 wedge (EQ)</dd></div>
   </dl>
+  <p>On the TH10 wedge the Seestar S30 Pro runs in equatorial (EQ) mode: tilted to aim at the celestial pole, it follows the sky by turning about one axis, so the field doesn't rotate during long runs the way it did on a level tripod on <a href="../posts/2026-09-23-day-one.html">day one</a>. The <a href="../posts/2026-10-09-veil-and-pleiades.html">first night on the wedge</a> was 9 October.</p>
   <p>The S30 Pro has two cameras: the main telephoto camera that takes the pictures, and a wide-angle camera covering about 54° of sky. That second camera turned out to be very useful, as you'll see below.</p>
 
   <h2>Talking to the telescope</h2>
@@ -87,7 +88,7 @@
 
   <h2>Choosing the night</h2>
   <p>Deciding <em>whether</em> to set up is still my job. I use the Scope Nights app on my iPhone, which rates each night for astronomy from the cloud, transparency and Moon forecasts. Once I've picked a night, Claude takes over the detail. On the night it also checks three weather models side by side (the Met Office, the European ECMWF and the German ICON model), because they often disagree about patchy low cloud. If the sky looks doubtful, it uses the telescope's wide-angle camera to look at the real sky and counts the stars.</p>
-  <figure><img src="../img/scope-nights-2026-10-10.jpg" alt="Scope Nights app: a week of night ratings for Didcot, Friday 9 October rated Good and mostly clear, the following nights fair to poor" loading="lazy" width="1125" height="2436" style="max-width: 22rem; margin-inline: auto"><figcaption>Scope Nights' all-night forecast at 00:45 on Saturday. Friday 9 Oct rated Good, which turned out right. Exact coordinates blurred.</figcaption></figure>
+  <figure><img src="../img/scope-nights-2026-10-10.jpg" alt="Scope Nights app: a week of night ratings, Friday 9 October rated Good and mostly clear, the following nights fair to poor" loading="lazy" width="1125" height="2436" style="max-width: 22rem; margin-inline: auto"><figcaption>Scope Nights' all-night forecast at 00:45 on Saturday. Friday 9 Oct rated Good, which turned out right. Exact coordinates blurred.</figcaption></figure>
 
   <h2>Turning the skyline into a plan</h2>
   <p>The planner combines four things for every target in its catalogue of about seventy objects: when it is dark enough (Sun more than 12° below the horizon), where the target will be across the night, the measured skyline with a 2° safety margin, and where the Moon is. From that it works out each target's usable window, then suggests exposure settings and filter choice for the kind of object it is. Emission nebulae get the dual-band filter. Galaxies and star clusters don't.</p>
@@ -115,13 +116,13 @@ min_alt = 30</code></pre>
     <figcaption>A real autofocus run on 7 Oct. Each dot is a 3-second exposure; HFR is the star's half-flux radius, so smaller is sharper. The dashed curve is the fit; the red line is where focus settled.</figcaption>
   </figure>
   <h3>Lessons from night four: keeping the scope awake</h3>
-  <p>On 11 October the scope powered itself off while the runner waited for darkness. The runner had been polling it over Alpaca every minute and taking a short test frame every two minutes, on the theory that activity would keep it awake. It didn't. The Seestar's <em>Auto Shut Down</em> setting counts only the phone app as activity, so Alpaca traffic doesn't reset its timer. The fix was the toggle itself, now off. The lesson for Claude was to stop calling a keepalive "working" until it has survived a real idle test end to end.</p>
+  <p>On <a href="../posts/2026-10-11-elephants-trunk.html">11 October</a> the scope powered itself off while the runner waited for darkness. The runner had been polling it over Alpaca every minute and taking a short test frame every two minutes, on the theory that activity would keep it awake. It didn't. The Seestar's <em>Auto Shut Down</em> setting counts only the phone app as activity, so Alpaca traffic doesn't reset its timer. The fix was the toggle itself, now off. The lesson for Claude was to stop calling a keepalive "working" until it has survived a real idle test end to end.</p>
   <p>The restart showed a second problem. The first frames had stars stretched about nine times longer than they were wide. My first guess was that the mount had lost its setup when it powered down. The real cause was simpler. The app's polar-alignment check showed the wedge about 7° off, and correcting it to 0.0° and 0.2° made every frame round. A 7° error drags a star about 37 arcseconds, roughly 10 pixels, across a 20-second exposure, which matches the trails. Nothing had been moved since Saturday, so Saturday's alignment was probably several degrees out too, despite the app reporting under 1°. Saturday's re-centring backs that up: the target drifted about 1.3 arcminutes a minute that night, against about 0.5 after Sunday's fix. The lesson is to measure drift in the first few minutes of a night rather than trust the alignment figure, and building a star-shape check into the runner is on the list.</p>
   <p>Alpaca can't read or change settings such as auto shut-down. The Seestar's own control channel, a JSON protocol on port 4700, can, and on current firmware it only accepts clients that sign a challenge with the same key the phone app uses. That handshake now works from the toolkit, and the first read confirmed the auto shut-down setting is off. The next step is to drive the scope over that channel too, and to add the same heartbeat the app sends, then prove it with an hour's idle test.</p>
   <p>Processing had a smaller lesson. The office PC treats a session as finished once no new frames have arrived for ten minutes, so a long cloud pause made it process the night at 02:36, before the last frames and the darks existed. The morning run threw that version away and processed the full night again.</p>
   <h3>Daytime: photographing the Sun</h3>
   <p>A solar session runs from a separate plan, and safety comes first. The scope slews with the filter wheel on its blank position. It then takes one frame at the shortest exposure and lowest gain. Through the solar filter the Sun reads a percent or two of full scale; without it the frame would saturate, and the run would turn the scope away and stop. It repeats that check on every re-aim. It then sets the exposure from the disc's brightness, about 12 ms on 13 October, and focuses on the sharpness of the disc's edge and the sunspots, since there are no stars to measure. Every ten minutes it takes a burst of 40 frames, so the sharpest can be picked later.</p>
-  <p>The first session taught two lessons. On a plain tripod the scope takes its bearings from a built-in compass, and that compass was about 95° out, so the scope reported it was on the Sun while it was pointing about a quarter of the way round the sky from it. Claude found the Sun with the wide-angle camera, centred it, and then <em>synced</em> the mount, telling it where it was really pointing. Every re-aim after that landed on the disc for three hours. The second lesson was focus: the black scope warms in sunshine, and its best focus moved by 30 steps over the first ninety minutes. The scheduled refocus every half hour lifted sharpness by about 15%.</p>
+  <p>The <a href="../posts/2026-10-13-sunspots.html">first session</a> taught two lessons. On a plain tripod the scope takes its bearings from a built-in compass, and that compass was about 95° out, so the scope reported it was on the Sun while it was pointing about a quarter of the way round the sky from it. Claude found the Sun with the wide-angle camera, centred it, and then <em>synced</em> the mount, telling it where it was really pointing. Every re-aim after that landed on the disc for three hours. The second lesson was focus: the black scope warms in sunshine, and its best focus moved by 30 steps over the first ninety minutes. The scheduled refocus every half hour lifted sharpness by about 15%.</p>
   <p class="note">The physical setup and polar alignment are still done by hand. Everything from "the scope is aligned" to "the pictures are on my phone" is automated.</p>
   <p><a href="../posts/processing.html">Next: how the pictures are processed</a></p>
 </main>

@@ -1,24 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Seestar Image Processing: Stacking, SPCC, Star Removal</title>
+<title>Seestar Processing with Siril: Stacking, SPCC and Star Removal</title>
 <link rel="canonical" href="https://uv101.uk/posts/processing.html">
-<meta name="description" content="How hundreds of short Seestar S30 Pro frames become one finished picture overnight: stacking, colour calibration against Gaia star spectra and star removal.">
-<meta name="keywords" content="astrophotography processing, image stacking, Siril, SPCC colour calibration, BlurXTerminator, StarXTerminator, star removal, GraXpert">
+<meta name="description" content="How hundreds of Seestar S30 Pro frames become one picture: stacking in Siril, Gaia colour calibration, star removal, the dual-band filter and multi-night stacking.">
+<meta name="keywords" content="astrophotography processing, Seestar processing Siril, image stacking, Siril, multi-night stacking, Seestar dual-band filter, HOO palette, SPCC colour calibration, BlurXTerminator, StarXTerminator, star removal, GraXpert">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="uv101 Astro">
 <meta property="og:url" content="https://uv101.uk/posts/processing.html">
-<meta property="og:title" content="Seestar Image Processing: Stacking, SPCC, Star Removal">
-<meta property="og:description" content="How hundreds of short Seestar S30 Pro frames become one finished picture overnight: stacking, colour calibration against Gaia star spectra and star removal.">
-<meta property="og:image" content="https://uv101.uk/img/heart-starreduced.jpg">
-<meta property="og:image:alt" content="The Heart Nebula with stars reduced">
+<meta property="og:title" content="Seestar Processing with Siril: Stacking, SPCC and Star Removal">
+<meta property="og:description" content="How hundreds of Seestar S30 Pro frames become one picture: stacking in Siril, Gaia colour calibration, star removal, the dual-band filter and multi-night stacking.">
+<meta property="og:image" content="https://uv101.uk/img/2026-10-07-heart-nebula-ic1805-stars-reduced.jpg">
+<meta property="og:image:alt" content="The Heart Nebula (IC 1805) in red hydrogen, with stars reduced">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Seestar Image Processing: Stacking, SPCC, Star Removal">
-<meta name="twitter:description" content="How hundreds of short Seestar S30 Pro frames become one finished picture overnight: stacking, colour calibration against Gaia star spectra and star removal.">
-<meta name="twitter:image" content="https://uv101.uk/img/heart-starreduced.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Seestar Image Processing: Stacking, SPCC, Star Removal", "description": "How hundreds of short Seestar S30 Pro frames become one finished picture overnight: stacking, colour calibration against Gaia star spectra and star removal.", "url": "https://uv101.uk/posts/processing.html", "keywords": "astrophotography processing, image stacking, Siril, SPCC colour calibration, BlurXTerminator, StarXTerminator, star removal, GraXpert", "image": "https://uv101.uk/img/heart-starreduced.jpg"}</script>
+<meta name="twitter:title" content="Seestar Processing with Siril: Stacking, SPCC and Star Removal">
+<meta name="twitter:description" content="How hundreds of Seestar S30 Pro frames become one picture: stacking in Siril, Gaia colour calibration, star removal, the dual-band filter and multi-night stacking.">
+<meta name="twitter:image" content="https://uv101.uk/img/2026-10-07-heart-nebula-ic1805-stars-reduced.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Seestar Processing with Siril: Stacking, SPCC and Star Removal", "description": "How hundreds of Seestar S30 Pro frames become one picture: stacking in Siril, Gaia colour calibration, star removal, the dual-band filter and multi-night stacking.", "url": "https://uv101.uk/posts/processing.html", "mainEntityOfPage": "https://uv101.uk/posts/processing.html", "inLanguage": "en-GB", "keywords": "astrophotography processing, Seestar processing Siril, image stacking, Siril, multi-night stacking, Seestar dual-band filter, HOO palette, SPCC colour calibration, BlurXTerminator, StarXTerminator, star removal, GraXpert", "isPartOf": {"@type": "WebSite", "name": "uv101 Astro", "url": "https://uv101.uk/"}, "image": "https://uv101.uk/img/2026-10-07-heart-nebula-ic1805-stars-reduced.jpg", "associatedMedia": [{"@type": "ImageObject", "contentUrl": "https://uv101.uk/img/2026-10-07-veil-nebula-ngc6992-natural.jpg", "description": "The Veil Nebula (NGC 6992) in natural colour", "caption": "Natural colour", "creditText": "uv101.uk", "creator": {"@type": "Organization", "name": "uv101 Astro", "url": "https://uv101.uk/", "logo": {"@type": "ImageObject", "url": "https://uv101.uk/assets/logo.png"}}, "copyrightNotice": "© 2026 uv101.uk. Please ask before reusing."}, {"@type": "ImageObject", "contentUrl": "https://uv101.uk/img/2026-10-07-veil-nebula-ngc6992-hoo.jpg", "description": "The Veil Nebula (NGC 6992) in the HOO palette, hydrogen red and oxygen teal", "caption": "HOO palette: hydrogen red, oxygen teal", "creditText": "uv101.uk", "creator": {"@type": "Organization", "name": "uv101 Astro", "url": "https://uv101.uk/", "logo": {"@type": "ImageObject", "url": "https://uv101.uk/assets/logo.png"}}, "copyrightNotice": "© 2026 uv101.uk. Please ask before reusing."}, {"@type": "ImageObject", "contentUrl": "https://uv101.uk/img/2026-10-07-andromeda-m31-noisy-crop.jpg", "description": "Close crop of the Andromeda Galaxy (M31) core, heavily processed and grainy", "caption": "Too much: aggressive contrast and saturation", "creditText": "uv101.uk", "creator": {"@type": "Organization", "name": "uv101 Astro", "url": "https://uv101.uk/", "logo": {"@type": "ImageObject", "url": "https://uv101.uk/assets/logo.png"}}, "copyrightNotice": "© 2026 uv101.uk. Please ask before reusing."}, {"@type": "ImageObject", "contentUrl": "https://uv101.uk/img/2026-10-07-andromeda-m31-gentle-crop.jpg", "description": "The same crop processed gently, smoother background", "caption": "The gentle finish now used", "creditText": "uv101.uk", "creator": {"@type": "Organization", "name": "uv101 Astro", "url": "https://uv101.uk/", "logo": {"@type": "ImageObject", "url": "https://uv101.uk/assets/logo.png"}}, "copyrightNotice": "© 2026 uv101.uk. Please ask before reusing."}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&display=swap">
@@ -39,15 +39,15 @@
   <p class="eyebrow">How it works · part 2 of 2</p>
   <h1>From hundreds of frames to one picture</h1>
   <p class="byline">Written October 2026 · <a href="../posts/how-it-works.html">Part 1: control and planning</a></p>
-  <p class="lede">A single 30-second frame of the Veil Nebula is mostly noise with a faint smudge in it. The picture at the top of this site is about 140 of those frames, combined and processed with no human touching a slider.</p>
+  <p class="lede">A single 30-second Seestar S30 Pro frame of the Veil Nebula is mostly noise with a faint smudge in it. The picture at the top of this site is about 140 of those frames, combined and processed with no human touching a slider.</p>
 
   <h2>Why stack at all?</h2>
   <p>Faint nebulae give off very little light, and every frame carries random noise. Averaging many frames keeps the signal and cancels the noise: four times the frames gives roughly twice the clarity. That's why the plans run for hours on one target, and why nights can be combined.</p>
 
   <h2>Where the work happens</h2>
-  <p>The telescope streams every frame over Wi-Fi to the home server the moment it's taken, so nothing is stored on the scope. Processing a session is heavy, so it runs on the office PC (an 8-core Ryzen) inside a Linux container nicknamed <strong>astromech</strong>. It checks for finished sessions every two minutes and takes about 8–9 minutes per session. The same job took 46 minutes on the home server.</p>
+  <p>The telescope streams every frame over Wi-Fi to the home server the moment it's taken, so nothing is stored on the scope. Processing a session is heavy, so it runs on the office PC (an 8-core Ryzen) inside a Linux container nicknamed <strong>astromech</strong>, where Siril does the calibration, alignment and stacking. It checks for finished sessions every two minutes and takes about 8–9 minutes per session. The same job took 46 minutes on the home server.</p>
 
-  <h2>The pipeline</h2>
+  <h2>The pipeline: Siril, GraXpert and a gentle stretch</h2>
   <ol class="steps">
     <li><b>Check and label the frames.</b> Skip any half-written or corrupt files and tag each frame with the camera's real colour pattern.</li>
     <li><b>Calibrate.</b> Subtract a master dark frame (shots taken with the shutter closed at the same exposure and gain) to remove the sensor's own glow and hot pixels, then turn the raw colour mosaic into colour images.</li>
@@ -60,33 +60,33 @@
     <li><b>Deliver.</b> Finished pictures are sent to my phone by Telegram, preview first and then the full-resolution file.</li>
   </ol>
 
-  <h2>Two colour palettes from one filter</h2>
+  <h2>Two colour palettes from the dual-band filter</h2>
   <p>The S30 Pro's dual-band filter passes two narrow slices of light: <strong>hydrogen-alpha</strong> at 656.3 nm, deep red, and <strong>oxygen-III</strong> at 500.7 nm, blue-green. The camera's red pixels mostly see the hydrogen and its green and blue pixels mostly see the oxygen. So for emission nebulae the pipeline produces a natural-colour version and a <strong>HOO</strong> version, which maps hydrogen to red and oxygen to teal. That's where the Veil's red and teal filaments come from. The thin coloured line under the site header marks those two wavelengths, to scale.</p>
   <div class="pair">
-    <figure><img src="../img/veil-natural.jpg" data-full="../img/full/veil-natural.jpg" alt="Veil Nebula in natural colour" loading="lazy" width="1125" height="2000"><figcaption>Natural colour</figcaption></figure>
-    <figure><img src="../img/veil-hoo.jpg" data-full="../img/full/veil-hoo.jpg" alt="Veil Nebula in the HOO palette" loading="lazy" width="1125" height="2000"><figcaption>HOO palette: hydrogen red, oxygen teal</figcaption></figure>
+    <figure><img src="../img/2026-10-07-veil-nebula-ngc6992-natural.jpg" data-full="../img/full/2026-10-07-veil-nebula-ngc6992-natural.jpg" alt="The Veil Nebula (NGC 6992) in natural colour" loading="lazy" width="1125" height="2000"><figcaption>Natural colour</figcaption></figure>
+    <figure><img src="../img/2026-10-07-veil-nebula-ngc6992-hoo.jpg" data-full="../img/full/2026-10-07-veil-nebula-ngc6992-hoo.jpg" alt="The Veil Nebula (NGC 6992) in the HOO palette, hydrogen red and oxygen teal" loading="lazy" width="1125" height="2000"><figcaption>HOO palette: hydrogen red, oxygen teal</figcaption></figure>
   </div>
   <p>Some of these fields sit in the Milky Way and are packed with stars. A third version separates the stars from the nebula, shrinks the stars and puts them back more faintly, so the gas isn't swamped.</p>
 
   <h2>Gentle beats dramatic</h2>
-  <p>The first Andromeda picture used strong local contrast and saturation, and it looked noisy. My verdict was "noisy as hell, the previous one looked better", and that was right. The main output is now the gentle version, with the dramatic one kept only as an extra.</p>
+  <p>The first <a href="../posts/2026-10-07-first-light.html">Andromeda picture</a> used strong local contrast and saturation, and it looked noisy. My verdict was "noisy as hell, the previous one looked better", and that was right. The main output is now the gentle version, with the dramatic one kept only as an extra.</p>
   <div class="pair">
-    <figure><img src="../img/m31-noisy-crop.jpg" alt="Close crop of Andromeda's core, heavily processed and grainy" loading="lazy"><figcaption>Too much: aggressive contrast and saturation</figcaption></figure>
-    <figure><img src="../img/m31-gentle-crop.jpg" alt="The same crop processed gently, smoother background" loading="lazy"><figcaption>The gentle finish now used</figcaption></figure>
+    <figure><img src="../img/2026-10-07-andromeda-m31-noisy-crop.jpg" alt="Close crop of the Andromeda Galaxy (M31) core, heavily processed and grainy" loading="lazy"><figcaption>Too much: aggressive contrast and saturation</figcaption></figure>
+    <figure><img src="../img/2026-10-07-andromeda-m31-gentle-crop.jpg" alt="The same crop processed gently, smoother background" loading="lazy"><figcaption>The gentle finish now used</figcaption></figure>
   </div>
 
-  <h2>Combining nights</h2>
-  <p>Each night is processed on its own first, so I see results the next morning. Nights on the same target can then be combined. Each night is calibrated with its own dark frames, which matters because exposures differ from night to night, then every frame from every night is aligned and stacked together, with cleaner frames counting for more.</p>
+  <h2>Combining nights: multi-night stacking</h2>
+  <p>Each night is processed on its own first, so I see results the next morning. Nights on the same target can then be combined. Each night is calibrated with its own dark frames, which matters because exposures differ from night to night, then every frame from every night is aligned and stacked together, with cleaner frames counting for more. The first two-night stacks were the <a href="../posts/2026-10-09-veil-and-pleiades.html">Eastern Veil (NGC 6992)</a> and the <a href="../posts/2026-10-17-flaming-star-rosette.html">Rosette Nebula (NGC 2244)</a>, where twice the time gave about 40% less noise.</p>
 
   <h2>The Sun: lucky imaging</h2>
-  <p>The Sun needs a different recipe. There are no stars to align on and plenty of light, so each frame is a few milliseconds long and the problem is the air, not noise. Each 40-frame burst is scored for sharpness and only the best 40% are kept, a technique called lucky imaging. On a tripod rather than the wedge, the picture also slowly rotates through the afternoon, by about 9° an hour on 13 October. Each frame is turned back by its own calculated angle, so the Sun's north pole points up, before the frames are aligned on the disc and stacked. The camera's colour grid is evened out first, so the stack keeps the sensor's full resolution. The final image matched NASA's SDO picture from the same day spot for spot.</p>
+  <p>The Sun needs a different recipe. There are no stars to align on and plenty of light, so each frame is a few milliseconds long and the problem is the air, not noise. Each 40-frame burst is scored for sharpness and only the best 40% are kept, a technique called lucky imaging. On a tripod rather than the wedge, the picture also slowly rotates through the afternoon, by about 9° an hour on 13 October. Each frame is turned back by its own calculated angle, so the Sun's north pole points up, before the frames are aligned on the disc and stacked. The camera's colour grid is evened out first, so the stack keeps the sensor's full resolution. The final image <a href="../posts/2026-10-13-sunspots.html">matched NASA's SDO picture</a> from the same day spot for spot.</p>
 
   <h2>What's next</h2>
   <ul>
-    <li>A proper AI star-removal tool and AI sharpening, both free.</li>
-    <li>Spectrophotometric colour calibration, which uses each star's measured spectrum and the camera's real filter curves.</li>
+    <li><s>A proper AI star-removal tool and AI sharpening.</s> Done: the <a href="../posts/2026-10-09-veil-and-pleiades.html">Veil re-run</a> added AI sharpening and AI star removal.</li>
+    <li><s>Spectrophotometric colour calibration.</s> Done: colour is now calibrated against Gaia star spectra.</li>
     <li>Drizzle integration, which uses the dither nudges to rebuild detail at twice the resolution for prints.</li>
-    <li>A trial of PixInsight, the standard professional-grade tool, with BlurXTerminator for deconvolution.</li>
+    <li><s>A trial of PixInsight.</s> Done: PixInsight's BlurXTerminator and StarXTerminator now run unattended on the office PC, first used on the two-night Veil.</li>
   </ul>
   <p>Results will be posted here with before-and-after comparisons.</p>
 </main>
