@@ -221,3 +221,5 @@ td:last-child { font-variant-numeric: tabular-nums; }
 @media (hover: none) { .lb__prev, .lb__next { display: none; } }  /* phones swipe */
 @media (prefers-reduced-motion: reduce) { .lb__track { scroll-behavior: auto; } }
 .lb__full { display: contents; cursor: zoom-in; }
+.gallery figcaption .note { display: block; font: 400 0.85rem/1.5 var(--body); padding-top: 0.25rem; }
+.gallery__intro { padding-block: 2rem 0; }
