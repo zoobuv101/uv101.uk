@@ -1,0 +1,39 @@
+# Written by site/build.py from site/github/ in the seestar repo; edit it there, not in site/public.
+# After each successful Pages build, resubmit https://uv101.uk/sitemap.xml to Google Search Console
+# (service-account key in the GSC_SA_KEY secret; Google answers HTTP 204 on success). IndexNow is pinged at deploy time.
+name: Google sitemap resubmit
+
+on:
+  page_build:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  resubmit:
+    if: github.event_name == 'workflow_dispatch' || github.event.build.status == 'built'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Resubmit sitemap
+        continue-on-error: true
+        env:
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+        run: |
+          pip install --quiet google-auth requests
+          python3 - <<'EOF'
+          import json, os, urllib.parse
+          from google.auth.transport.requests import AuthorizedSession
+          from google.oauth2 import service_account
+          creds = service_account.Credentials.from_service_account_info(
+              json.loads(os.environ["GSC_SA_KEY"]), scopes=["https://www.googleapis.com/auth/webmasters"])
+          q = lambda u: urllib.parse.quote(u, safe="")
+          url = (f"https://www.googleapis.com/webmasters/v3/sites/{q('https://uv101.uk/')}"
+                 f"/sitemaps/{q('https://uv101.uk/sitemap.xml')}")
+          r = AuthorizedSession(creds).put(url, timeout=30)
+          print(f"Google: HTTP {r.status_code}")
+          if r.status_code != 204:
+              print(r.text[:500])
+              raise SystemExit(1)
+          EOF
