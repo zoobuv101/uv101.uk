@@ -196,7 +196,9 @@ td:last-child { font-variant-numeric: tabular-nums; }
 .tiles a:hover { border-color: var(--oiii); }
 @media (prefers-reduced-motion: no-preference) { .tiles a:hover img { transform: scale(1.04); } }
 
-/* scroll reveal: set up by the script in the page head */
+/* scroll reveal: set up by the script in the page head. The first rule hides the blocks from the first paint
+   (no transition, so nothing visible fades out before the observer starts); .rv-done marks ones already shown. */
+.reveal :is(.page > *, .gallery > figure, .tiles > a, .hero__text > *):not(.rv):not(.rv-done) { opacity: 0; transform: translateY(1.5rem); }
 .reveal .rv { opacity: 0; transform: translateY(1.5rem); transition: opacity 0.65s ease, transform 0.65s ease; }
 .reveal .rv.in { opacity: 1; transform: none; }
 
