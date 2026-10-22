@@ -1,6 +1,8 @@
 # Written by site/build.py from site/github/ in the seestar repo; edit it there, not in site/public.
 # After each successful Pages build, resubmit https://uv101.uk/sitemap.xml to Google Search Console
 # (service-account key in the GSC_SA_KEY secret; Google answers HTTP 204 on success). IndexNow is pinged at deploy time.
+# Builds whose commit only touches live.html (the scheduler's noindex "Tonight" page, a few times a day) are skipped:
+# the sitemap hasn't changed.
 name: Google sitemap resubmit
 
 on:
@@ -16,7 +18,19 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
+      - name: Only live.html changed?
+        id: live
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.build.commit }}
+        run: |
+          if [ -n "$SHA" ]; then
+            files=$(gh api "repos/${{ github.repository }}/commits/$SHA" --jq '.files[].filename' | sort -u)
+            echo "changed: $files"
+            if [ "$files" = "live.html" ]; then echo "only=yes" >> "$GITHUB_OUTPUT"; echo "live.html only: skipping"; fi
+          fi
       - name: Resubmit sitemap
+        if: steps.live.outputs.only != 'yes'
         continue-on-error: true
         env:
           GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
