@@ -89,7 +89,7 @@ pre code { background: none; padding: 0; font-size: inherit; }
 /* figures inside the column may break out wider */
 figure { margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
 figure.wide { width: min(64rem, calc(100vw - 32px)); margin-inline: calc((min(64rem, calc(100vw - 32px)) - 100%) / -2); }
-figure img { border-radius: 3px; }
+figure img { border-radius: 3px; align-self: center; } /* an image narrower than its figure sits in the middle, not on the left */
 figcaption { font: 400 0.78rem/1.55 var(--mono); color: var(--dim); }
 .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.75rem; }
 .pair figure { min-width: 0; }
