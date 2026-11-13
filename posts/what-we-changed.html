@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seestar S30 Pro Automation: What We Fixed and Improved</title>
+<link rel="canonical" href="https://uv101.uk/posts/what-we-changed.html">
+<meta name="description" content="Two months of running a Seestar S30 Pro from software: the plate-solving bug, slew-only centring, drift-based polar alignment, sky alerts and multi-night stacks.">
+<meta name="keywords" content="Seestar S30 Pro automation, Seestar plate solving, Seestar EQ mode, TH10 wedge, polar alignment drift method, drift alignment, astrometry.net WCS, guide pulses, dithering, multi-night stacking, meteor shower alerts, Seestar scheduler">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="uv101 Astro">
+<meta property="og:url" content="https://uv101.uk/posts/what-we-changed.html">
+<meta property="og:title" content="Seestar S30 Pro Automation: What We Fixed and Improved">
+<meta property="og:description" content="Two months of running a Seestar S30 Pro from software: the plate-solving bug, slew-only centring, drift-based polar alignment, sky alerts and multi-night stacks.">
+<meta property="og:image" content="https://uv101.uk/img/2026-11-12-pleiades-m45.jpg">
+<meta property="og:image:alt" content="The Pleiades star cluster wrapped in blue reflection dust, five hours over two nights on a Seestar S30 Pro">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Seestar S30 Pro Automation: What We Fixed and Improved">
+<meta name="twitter:description" content="Two months of running a Seestar S30 Pro from software: the plate-solving bug, slew-only centring, drift-based polar alignment, sky alerts and multi-night stacks.">
+<meta name="twitter:image" content="https://uv101.uk/img/2026-11-12-pleiades-m45.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Seestar S30 Pro Automation: What We Fixed and Improved", "description": "Two months of running a Seestar S30 Pro from software: the plate-solving bug, slew-only centring, drift-based polar alignment, sky alerts and multi-night stacks.", "url": "https://uv101.uk/posts/what-we-changed.html", "mainEntityOfPage": "https://uv101.uk/posts/what-we-changed.html", "inLanguage": "en-GB", "keywords": "Seestar S30 Pro automation, Seestar plate solving, Seestar EQ mode, TH10 wedge, polar alignment drift method, drift alignment, astrometry.net WCS, guide pulses, dithering, multi-night stacking, meteor shower alerts, Seestar scheduler", "isPartOf": {"@type": "WebSite", "name": "uv101 Astro", "url": "https://uv101.uk/"}, "image": "https://uv101.uk/img/2026-11-12-pleiades-m45.jpg"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/lightbox.js" defer></script>
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../favicon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#07090f">
+<script>(function(){var d=document.documentElement;if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('reveal');setTimeout(function(){if(!window.__rv)d.classList.remove('reveal');},2500);document.addEventListener('DOMContentLoaded',function(){window.__rv=1;var els=document.querySelectorAll('.page > *, .gallery > figure, .tiles > a, .hero__text > *');var io=new IntersectionObserver(function(es){var n=0;es.forEach(function(e){if(e.isIntersecting){e.target.style.transitionDelay=(0.1+0.08*n++)+'s';e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(el){el.classList.add('rv');io.observe(el);el.addEventListener('transitionend',function f(ev){if(ev.target!==el||ev.propertyName!=='opacity')return;el.removeEventListener('transitionend',f);el.style.transitionDelay='';el.classList.remove('rv','in');el.classList.add('rv-done');});});});})();</script>
+</head>
+<body>
+<header class="bar"><a class="brand" href="../index.html" aria-label="uv101 Astro, home"><img class="brand__logo" src="../assets/logo.png" alt="uv101 Astro" width="254" height="240"></a>
+<nav><a href="../index.html">Log</a><a href="../live.html">Tonight</a><a href="../posts/small-telescope.html">Guide</a><a href="../posts/how-it-works.html" aria-current="page">How it works</a><a href="../gallery.html">Gallery</a></nav></header>
+<div class="spectrum" aria-hidden="true"></div>
+<main class="page">
+  <p class="eyebrow">How it works · part 3 of 3</p>
+  <h1>What we've fixed and improved since October</h1>
+  <p class="byline">Written November 2026 · <a href="../posts/how-it-works.html">Part 1: control and planning</a> · <a href="../posts/processing.html">Part 2: processing</a></p>
+  <p class="lede">Parts 1 and 2 describe the system as it was built in the first two weeks of October. Ten nights later, a fair amount has changed. Some of it is new features, but the most useful changes came from things going wrong and working out why.</p>
+
+  <h2>The biggest fix: the telescope knew where it was, the software didn't</h2>
+  <p>Every time the telescope points somewhere, the software checks where it really landed by <em>plate solving</em>: it finds the stars in a short exposure and matches their pattern against a star catalogue. For weeks the results looked as if the mount was sloppy. Slews landed 3 to 6 arcminutes from the target, corrections never quite converged, and on 30 October it reported itself centred and was 19 arcminutes off two minutes later.</p>
+  <p>The mount was fine. The solver library returns two things: a full description of where every pixel of the frame points in the sky (a <em>WCS</em>, world coordinate system), and a convenient "centre" value. We used the convenient value. It turns out to be the middle of the handful of stars the solver happened to recognise, not the middle of the picture, and that group changes from frame to frame. So every position the software measured was off by a few arcminutes, in a different direction each time.</p>
+  <p>The proof came from the frames of 12 November. Lining up the stars in successive frames showed the picture creeping steadily by about 0.2 arcminutes a minute. The old solves of the same frames said it was standing still, then jumped by 6 arcminutes. With the true frame centre calculated from the WCS, the solves now give the same smooth track as the stars. The fix is a few lines, and it affects everything that depends on knowing where the scope is pointing: centring, re-centring and the guide-pulse tests.</p>
+
+  <h2 id="centring">Centring with slews only</h2>
+  <p>A telescope normally makes the last small correction with <em>guide pulses</em>: short nudges at a known speed. Part 1 says ours moved about 75 arcseconds a second. On the wedge, the measurements stopped making sense: a one-second nudge moved it 261 arcseconds, a longer one less, and on most nights every direction was marked unusable. So the runner learned to centre with full slews instead, coming in from a degree away so the mount can't ignore a tiny move.</p>
+  <p>Two safeguards came out of the 30 October miss. The runner now waits five seconds after each slew before taking the frame it solves, so it never measures a mount that is still settling, and it only believes "centred" when two solves in a row agree. On 12 November all 23 re-centres behaved.</p>
+  <p>The pulse tests were measured with the faulty solver too, so the next clear night re-tests them. If pulses turn out to work after all, the runner can go back to finer centring and to <em>dithering</em>, the small random shifts between frames that stop fixed noise patterns lining up in the stack.</p>
+
+  <h2>Polar alignment, measured from the drift</h2>
+  <p>On a wedge the telescope's axis has to point at the celestial pole. The app's alignment routine is quick and convenient, but its reading has never matched what the stars do. In October it said under 1° when the real error was several degrees. On 12 November it said 0.1° on both axes.</p>
+  <p>The stars give an independent answer. A mount whose axis is off the pole drifts slowly north or south as it tracks, and the drift follows a pattern: near the meridian it shows the left-right (azimuth) error, low in the east or west the up-down (altitude) error. This is the old <em>drift alignment</em> method that astronomers used with an eyepiece and a lot of patience. A new command, <code>polarcheck</code>, does it with plate solves: two solves a few minutes apart at one or two places in the sky, then a fit of the drift to a model of the misaligned axis.</p>
+  <p>Run over the four targets of 12 November, it found the axis about 1.0° east of the pole and 16 arcminutes high. The drift was the same on three targets in the west and south and half as much on M81 in the north-east, which is what that error predicts, and which also ruled out the motor. Tracking still gave round stars in 20-second frames, but the picture crept, so the telescope had to keep re-centring. From now on the app does the rough alignment and the drift check has the final word.</p>
+
+  <h2>Knowing when to set up</h2>
+  <p>A scheduler now runs all the time on the home server and sends messages to my phone.</p>
+  <ul>
+    <li><strong>Deep-sky nights.</strong> Each morning it checks the three weather models against the measured skyline, the Moon and the dark hours. On a good night it says when, for how long and which targets are worth it, with new subjects first and reshoots only where more time would make a visible difference. It also checks gusts, frost and dew. On a cloudy day it now says nothing at all.</li>
+    <li><strong>Meteor showers and eclipses.</strong> A week before, two days before and on the day, whatever the weather. Each message gives a realistic rate for a suburban sky, whether the Moon spoils it, the chance of clear sky for the event's own hours, and how to photograph it. The telescope's 4° by 2° field is far too narrow for meteors, so those messages give camera and phone settings instead.</li>
+    <li><strong>The Moon.</strong> Separate heads-ups for nights when the Moon is placed for the view from the front of the house, which feed an unattended Moon session and a growing set of phase images.</li>
+  </ul>
+  <p>The same scheduler publishes a simple <a href="../live.html">live page</a> showing what the telescope is doing.</p>
+
+  <h2>Stacking across nights</h2>
+  <p>Part 2 explains why more frames means a cleaner picture. Many targets now get more than one night: each night is calibrated with its own dark frames, then all the frames are lined up on the stars and stacked together. The Pleiades are at 5 hours 21 minutes over two nights, the Wizard at 2 hours 48, the Iris and the Bubble at about 2 hours each. The night runner also refuses frames taken through cloud, by counting the stars in each one, so a passing cloud costs time but doesn't soften the stack.</p>
+
+  <h2>Smaller lessons</h2>
+  <ul>
+    <li><strong>Close the app before the run.</strong> If the app is still on its polar-alignment screen it holds on to the camera, and every exposure the runner asks for is refused.</li>
+    <li><strong>A clear-looking start isn't a clear night.</strong> On 31 October the second target started under cloud, focused on haze and counted its "reference" stars from a cloudy frame, which switched off cloud detection. Checking the sky before focusing and centring is on the list.</li>
+    <li><strong>Leave the dew heater on.</strong> The runner parks at the end of the night but leaves the heater running, so the optics stay clear until the scope comes in.</li>
+  </ul>
+
+  <h2>Still to do</h2>
+  <ul>
+    <li>Run <code>polarcheck</code> live at the start of a night, before the runner starts.</li>
+    <li>Re-test guide pulses with the fixed solver, and bring back dithering if they work.</li>
+    <li>Tighten the centring limits, which were loosened to 6 and 10 arcminutes to cope with an error that turned out to be in the software.</li>
+  </ul>
+  <p>The physical setup is still done by hand: the tripod, the wedge and the rough polar alignment. Everything after that is automated, and is still improving.</p>
+</main>
+
+<footer>Seestar S30 Pro · TH10 wedge · a back garden in Oxfordshire. Telescope driven, images processed and pages drafted by Claude; tripod carried by a human.<br>© 2026 uv101.uk. All images and text are copyright; please ask before reusing them.<nav class="sites" aria-label="My other sites">Also by me: <a href="https://hifisounds.co.uk/">HiFi Sounds<span class="tip">My hi-fi pages</span></a> · <a href="https://only-vans.uk/">Only Vans<span class="tip">The adventures of Ted and Lola, our VW camper vans</span></a> · <a href="https://db9v12.co.uk/">DB9 V12<span class="tip">Owning and maintaining an Aston Martin DB9</span></a></nav></footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "98b3a9731bd94b2e80cbc89038192b12"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

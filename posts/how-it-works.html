@@ -36,9 +36,9 @@
 <nav><a href="../index.html">Log</a><a href="../live.html">Tonight</a><a href="../posts/small-telescope.html">Guide</a><a href="../posts/how-it-works.html" aria-current="page">How it works</a><a href="../gallery.html">Gallery</a></nav></header>
 <div class="spectrum" aria-hidden="true"></div>
 <main class="page">
-  <p class="eyebrow">How it works · part 1 of 2</p>
+  <p class="eyebrow">How it works · part 1 of 3</p>
   <h1>Control and planning</h1>
-  <p class="byline">Written October 2026 · <a href="../posts/processing.html">Part 2: processing</a></p>
+  <p class="byline">Written October 2026 · <a href="../posts/processing.html">Part 2: processing</a> · <a href="../posts/what-we-changed.html">Part 3: what we've fixed since</a></p>
   <p class="lede">A smart telescope is designed to be driven from a phone app. Here, Claude drives it instead: it points, focuses, tracks and shoots all night from a plan, and works out what the garden can actually see before it makes that plan.</p>
   <p>I'm new to astrophotography, and most of what follows is software Claude wrote over a few days, with me carrying the tripod, answering questions about the garden and approving the bigger decisions. As far as I can tell, very few people are running a telescope this way, so this page explains how it fits together.</p>
 
@@ -69,7 +69,7 @@
   <ul>
     <li><strong>Colour.</strong> The camera reports its colour-filter pattern as RGGB. Star colours in the first test images showed it is actually GRBG in the way we read the frames. Getting this wrong gave green and magenta stars, then a mirror-image result. Both are fixed and checked against a raw frame.</li>
     <li><strong>Gain.</strong> The default gain of 80 with 10-second exposures was limited by the camera's own read noise. Gain 200 with 20–30 second exposures gives far cleaner data.</li>
-    <li><strong>Dithering rate.</strong> The guide pulses move the mount at about 75 arcseconds per second, measured by plate-solving before and after each pulse.</li>
+    <li><strong>Dithering rate.</strong> The guide pulses move the mount at about 75 arcseconds per second, measured by plate-solving before and after each pulse. On the wedge this didn't hold up: the pulse tests gave inconsistent answers, so centring switched to slews. <a href="../posts/what-we-changed.html#centring">Part 3</a> has the story.</li>
     <li><strong>Polar alignment.</strong> The app's routine needs clear sky overhead. Under cloud it reported a 103° error. Once the sky cleared, the same setup read 0.7°.</li>
   </ul>
 
